@@ -19,6 +19,7 @@
         --text-dark: #212529;
         --text-muted: #6c757d;
         --whatsapp-green: #25D366;
+        --danger-red: #dc3545;
         --primary-glow: rgba(42, 100, 101, 0.4);
         --gold-glow: rgba(252, 216, 143, 0.7);
     }
@@ -86,7 +87,7 @@
     .feature-box button.go-to-btn, #doctor-search-btn { background-color: var(--gold); color: var(--dark-green); }
     .feature-box button:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); }
     
-    #recommendation-result-container { margin-top: 15px; }
+    #recommendation-result-container, #analysis-result-container { margin-top: 15px; }
     .recommendation-card { background-color: var(--white); border: 1px solid #ddd; border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: right; transition: all 0.3s ease; }
     .recommendation-card.primary-recommendation { border: 2px solid var(--dark-green); box-shadow: 0 0 20px var(--primary-glow); }
     .recommendation-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
@@ -99,37 +100,21 @@
         position: relative; 
         overflow: hidden; 
     }
-    .recommendation-card.primary-recommendation .recommendation-header .icon {
-        animation: pulse 1.5s infinite ease-in-out;
-    }
+    .recommendation-card.primary-recommendation .recommendation-header .icon { animation: pulse 1.5s infinite ease-in-out; }
     .recommendation-card.primary-recommendation .recommendation-header .icon::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -60%;
-        width: 20%;
-        height: 200%;
+        content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%;
         background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
-        transform: rotate(35deg);
-        animation: sheen 3s infinite;
+        transform: rotate(35deg); animation: sheen 3s infinite;
     }
 
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
     @keyframes sheen { 0% { left: -60%; } 100% { left: 140%; } }
 
     .recommendation-header .icon .svg-icon {
-        width: 100%;
-        height: 100%;
-        -webkit-mask-size: contain;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        background-color: var(--dark-green); 
+        width: 100%; height: 100%; -webkit-mask-size: contain; mask-size: contain;
+        -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; background-color: var(--dark-green); 
     }
-    .recommendation-header .icon .fa-solid {
-        font-size: 28px;
-        color: var(--dark-green);
-    }
+    .recommendation-header .icon .fa-solid { font-size: 28px; color: var(--dark-green); }
     .recommendation-header h3 { margin: 0; font-size: 20px; color: var(--text-dark); }
     .recommendation-badge { background-color: var(--dark-green); color: white; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; margin-right: auto; }
     .recommendation-reason { font-size: 15px; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px; text-align: justify; }
@@ -143,13 +128,8 @@
     .section-title { background-color: var(--dark-green); color: var(--white); padding: 12px 20px; border-radius: 10px; margin-top: 35px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
     .section-title .icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
     .section-title .icon .svg-icon {
-        width: 100%;
-        height: 100%;
-        background-color: var(--white);
-        -webkit-mask-size: contain;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
+        width: 100%; height: 100%; background-color: var(--white); -webkit-mask-size: contain;
+        mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     }
     .section-title .icon .fa-solid { font-size: 28px; }
     .section-title .title-text { flex-grow: 1; }
@@ -175,44 +155,37 @@
     .whatsapp-btn:hover { transform: scale(1.05); }
     .whatsapp-btn i { margin-left: 10px; }
     
-    /* --- CSS الجديد الخاص بقسم الخريطة --- */
-    .location-section {
-        margin-top: 40px;
-        text-align: center;
-    }
-    .location-section h2 {
-        font-size: 20px;
-        color: var(--dark-green);
-        margin-bottom: 15px;
-    }
+    .location-section { margin-top: 40px; text-align: center; }
+    .location-section h2 { font-size: 20px; color: var(--dark-green); margin-bottom: 15px; }
     .location-map {
-        position: relative; /* Required for the overlay */
-        width: 100%;
-        height: 300px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        overflow: hidden; /* Ensures the iframe corners are also rounded */
+        position: relative; width: 100%; height: 300px; border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden;
     }
-    .location-map iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
+    .location-map iframe { width: 100%; height: 100%; border: 0; }
+    .map-link-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: pointer; }
+    .location-address { margin-top: 15px; font-size: 16px; color: var(--text-muted); line-height: 1.7; }
+
+    /* --- AI Analyzer Styles --- */
+    .upload-area { border: 2px dashed #ccc; border-radius: 10px; padding: 20px; margin-bottom: 15px; transition: border-color 0.3s, background-color 0.3s; }
+    .upload-area.drag-over { border-color: var(--dark-green); background-color: #e6f3f3; }
+    #report-files-input { display: none; }
+    .upload-label { display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); }
+    .upload-label i { font-size: 36px; margin-bottom: 10px; color: var(--dark-green); }
+    .upload-label span { font-size: 16px; font-weight: 600; }
+    #file-preview-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+    .preview-item { position: relative; width: 80px; height: 80px; }
+    .preview-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+    .remove-file-btn {
+        position: absolute; top: -5px; right: -5px; width: 20px; height: 20px;
+        background-color: var(--danger-red); color: white; border: none; border-radius: 50%;
+        cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
     }
-    .map-link-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10; /* Places the link on top of the map */
-        cursor: pointer;
-    }
-    .location-address {
-        margin-top: 15px;
-        font-size: 16px;
-        color: var(--text-muted);
-        line-height: 1.7;
-    }
+    .analysis-card { background-color: var(--white); border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: right; }
+    .analysis-card .disclaimer { background-color: #fff3cd; border-right: 5px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .analysis-card .disclaimer strong { color: #856404; }
+    .analysis-section-title { font-size: 18px; font-weight: 700; color: var(--dark-green); margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid var(--gold); }
+    .analysis-card ul { padding-right: 20px; margin: 0; }
+    .analysis-card li { margin-bottom: 10px; line-height: 1.8; }
 </style>
 </head>
 <body>
@@ -226,33 +199,39 @@
         <div class="info-grid">
             <div class="info-item">
                 <i class="fa-solid fa-phone"></i>
-                <div class="info-item-text">
-                    للحجز والاستفسار: <strong>16897</strong>
-                    <span class="en">For booking & inquiries</span>
-                </div>
+                <div class="info-item-text"> للحجز والاستفسار: <strong>16897</strong> <span class="en">For booking & inquiries</span> </div>
             </div>
             <div class="info-item">
                 <i class="fa-brands fa-whatsapp"></i>
-                <div class="info-item-text">
-                    واتساب: <strong>01033366629</strong>
-                    <span class="en">WhatsApp</span>
-                </div>
+                <div class="info-item-text"> واتساب: <strong>01033366629</strong> <span class="en">WhatsApp</span> </div>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-map-marker-alt"></i>
-                <div class="info-item-text">
-                    العنوان: <strong>شارع 9 - المقطم - القاهرة</strong>
-                    <span class="en">Address: Street 9, Mokattam, Cairo</span>
-                </div>
+                <div class="info-item-text"> العنوان: <strong>شارع 9 - المقطم - القاهرة</strong> <span class="en">Address: Street 9, Mokattam, Cairo</span> </div>
             </div>
             <div class="info-item">
                 <i class="fa-solid fa-receipt"></i>
-                <div class="info-item-text">
-                    الرقم الضريبي: <strong>٠٠٨-٤٨٩-٦٩٩</strong>
-                    <span class="en">Tax ID: 699-489-008</span>
-                </div>
+                <div class="info-item-text"> الرقم الضريبي: <strong>٠٠٨-٤٨٩-٦٩٩</strong> <span class="en">Tax ID: 699-489-008</span> </div>
             </div>
         </div>
+    </div>
+
+    <!-- AI Report Analyzer -->
+    <div class="feature-box">
+        <h2>🔬 المحلل الذكي للتقارير الطبية (تجريبي)</h2>
+        <p>ارفع صور التحاليل أو الأشعة وسيقوم المساعد الذكي بتحليلها، وتوجيهك للعيادة المناسبة، وتقديم نصائح أولية.</p>
+        <div class="upload-area" id="upload-area">
+            <input type="file" id="report-files-input" multiple accept="image/png, image/jpeg, image/webp">
+            <label for="report-files-input" class="upload-label">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>اختر صور التقارير أو اسحبها إلى هنا</span>
+            </label>
+            <div id="file-preview-container"></div>
+        </div>
+        <textarea id="user-notes-input" placeholder="يمكنك إضافة أي ملاحظات أو أسئلة هنا... (اختياري)"></textarea>
+        <button id="analyze-reports-btn" disabled>🔍 حلل الآن</button>
+        <div id="analysis-loader" class="loader"></div>
+        <div id="analysis-result-container"></div>
     </div>
 
     <!-- البحث باسم الطبيب -->
@@ -272,31 +251,24 @@
         <textarea id="symptoms-input" placeholder="مثال: أشعر بألم حاد في جنبي الأيمن وحرقان في البول..."></textarea>
         <button id="get-recommendation-btn">✨ أرشدني للعيادة الصحيحة</button>
         <div id="loader" class="loader"></div>
-        <div id="recommendation-result-container">
-            <!-- النتائج الذكية ستظهر هنا -->
-        </div>
+        <div id="recommendation-result-container"></div>
     </div>
 
     <!-- باقي محتوى الصفحة -->
     <div id="clinics-container"></div>
     <div class="whatsapp-section" id="whatsapp-section">
         <p>للتحدث مع خدمة العملاء يمكنك التواصل عبر خدمة واتساب</p>
-        <a href="https://api.whatsapp.com/send?phone=%2B201033366629" target="_blank" class="whatsapp-btn">
-            تواصل معنا <i class="fab fa-whatsapp"></i>
-        </a>
+        <a href="https://api.whatsapp.com/send?phone=%2B201033366629" target="_blank" class="whatsapp-btn"> تواصل معنا <i class="fab fa-whatsapp"></i> </a>
     </div>
 
-    <!-- قسم الخريطة الجديد -->
+    <!-- قسم الخريطة -->
     <div class="location-section">
         <h2>موقعنا على الخريطة</h2>
         <div class="location-map">
-            <!-- This link overlay makes the entire map clickable -->
             <a href="https://maps.app.goo.gl/aRHLHHQpuCCw8VZw8" target="_blank" class="map-link-overlay" title="اضغط لفتح خرائط جوجل"></a>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.793393278571!2d31.29341517555319!3d30.01416997493771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839b1d964f43b%3A0x7d6a5a9478f7a8c!2sMokattam%20Specialized%20Hospital!5e0!3m2!1sen!2seg!4v1693175510427!5m2!1sen!2seg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <p class="location-address">
-            شارع 9 - مستشفى المقطم التخصصي - المقطم - القاهرة
-        </p>
+        <p class="location-address"> شارع 9 - مستشفى المقطم التخصصي - المقطم - القاهرة </p>
     </div>
 
     <div class="footer-image-container">
@@ -496,13 +468,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Symptoms Recommendation Logic
     const getRecommendationBtn = document.getElementById('get-recommendation-btn');
     const symptomsInput = document.getElementById('symptoms-input');
     const recommendationResultContainer = document.getElementById('recommendation-result-container');
     const loader = document.getElementById('loader');
     
-    const AI_FUNCTION_URL = "/api/recommend"; 
-
     getRecommendationBtn.addEventListener('click', async () => {
         const symptomsText = symptomsInput.value.trim();
         if (!symptomsText) {
@@ -515,19 +486,15 @@ document.addEventListener('DOMContentLoaded', function() {
         getRecommendationBtn.disabled = true;
 
         try {
-            const response = await fetch(AI_FUNCTION_URL, {
+            const response = await fetch("/api/recommend", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symptoms: symptomsText })
             });
 
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || 'حدث خطأ أثناء التواصل مع المساعد الذكي.');
-            }
-
-            const data = await response.json();
+            if (!response.ok) throw new Error('Network response was not ok.');
             
+            const data = await response.json();
             if (data.recommendations && data.recommendations.length > 0) {
                 displayRecommendations(data.recommendations);
             } else {
@@ -542,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
             getRecommendationBtn.disabled = false;
         }
     });
-
+    
     function displayRecommendations(recommendations) {
         recommendationResultContainer.innerHTML = '';
         recommendations.forEach((rec, index) => {
@@ -571,10 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
             button.innerHTML = `اذهب إلى عيادة ${clinicInfo.name} <i class="fa-solid fa-arrow-down"></i>`;
             button.onclick = () => {
                 const clinicSectionId = `clinic-${rec.id.replace(/[()\s]/g, '-')}`;
-                const clinicSection = document.getElementById(clinicSectionId);
-                if (clinicSection) {
-                    clinicSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                document.getElementById(clinicSectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             };
             card.appendChild(button);
             recommendationResultContainer.appendChild(card);
@@ -584,10 +548,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayFallback(message = null) {
         const fallbackMessage = message || 'لم نتمكن من تحديد تخصص دقيق بناءً على الوصف. في هذه الحالة، نقترح عليك التوجه لعيادة <strong>الباطنة العامة</strong>، حيث يمكن للطبيب إجراء تشخيص مبدئي شامل وتوجيهك للتخصص الصحيح إذا لزم الأمر.';
         const clinicInfo = clinicMap.get("الباطنة-العامة");
-        
-        const iconHtml = clinicInfo.isSvg 
-            ? `<div class="svg-icon" style="-webkit-mask-image: url(/icons/${clinicInfo.icon}); mask-image: url(/icons/${clinicInfo.icon});"></div>`
-            : `<i class="fa-solid ${clinicInfo.icon}"></i>`;
+        const iconHtml = `<i class="fa-solid ${clinicInfo.icon}"></i>`;
         
         recommendationResultContainer.innerHTML = `
             <div class="recommendation-card primary-recommendation">
@@ -603,12 +564,192 @@ document.addEventListener('DOMContentLoaded', function() {
         button.className = 'go-to-btn';
         button.innerHTML = `اذهب إلى عيادة الباطنة العامة <i class="fa-solid fa-arrow-down"></i>`;
         button.onclick = () => {
-            const clinicSection = document.getElementById('clinic-الباطنة-العامة');
-            if (clinicSection) {
-                clinicSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            document.getElementById('clinic-الباطنة-العامة')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
         recommendationResultContainer.querySelector('.recommendation-card').appendChild(button);
+    }
+
+    // --- New AI Analyzer Logic ---
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('report-files-input');
+    const previewContainer = document.getElementById('file-preview-container');
+    const analyzeBtn = document.getElementById('analyze-reports-btn');
+    const analysisLoader = document.getElementById('analysis-loader');
+    const analysisResultContainer = document.getElementById('analysis-result-container');
+    const userNotesInput = document.getElementById('user-notes-input');
+    let uploadedFiles = []; // To store file data and base64 strings
+
+    // Drag and Drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => uploadArea.classList.add('drag-over'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('drag-over'), false);
+    });
+    uploadArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        handleFiles(files);
+    }
+
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        [...files].forEach(file => {
+            // Only process image files
+            if (!file.type.startsWith('image/')) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const fileData = {
+                    name: file.name,
+                    base64: e.target.result,
+                    mimeType: file.type
+                };
+                uploadedFiles.push(fileData);
+                renderPreviews();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function renderPreviews() {
+        previewContainer.innerHTML = '';
+        uploadedFiles.forEach((fileData, index) => {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            previewItem.innerHTML = `
+                <img src="${fileData.base64}" alt="${fileData.name}">
+                <button class="remove-file-btn" data-index="${index}">&times;</button>
+            `;
+            previewContainer.appendChild(previewItem);
+        });
+        updateAnalyzeButtonState();
+    }
+
+    previewContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-file-btn')) {
+            const index = parseInt(e.target.dataset.index, 10);
+            uploadedFiles.splice(index, 1);
+            renderPreviews();
+        }
+    });
+
+    function updateAnalyzeButtonState() {
+        analyzeBtn.disabled = uploadedFiles.length === 0;
+    }
+
+    analyzeBtn.addEventListener('click', async () => {
+        if (uploadedFiles.length === 0) return;
+
+        analysisLoader.style.display = 'block';
+        analysisResultContainer.innerHTML = '';
+        analyzeBtn.disabled = true;
+
+        const imagesPayload = uploadedFiles.map(file => ({
+            mime_type: file.mimeType,
+            data: file.base64.split(',')[1] // Remove the "data:mime/type;base64," part
+        }));
+
+        try {
+            const response = await fetch("/api/analyze", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    images: imagesPayload,
+                    notes: userNotesInput.value 
+                })
+            });
+
+            if (!response.ok) {
+                 const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'حدث خطأ أثناء تحليل التقارير.');
+            }
+
+            const data = await response.json();
+            displayAnalysisResult(data);
+
+        } catch (error) {
+            console.error("Analysis Error:", error);
+            analysisResultContainer.innerHTML = `<div class="analysis-card"><p>عفواً، حدث خطأ تقني. يرجى التأكد من أن الصور واضحة والمحاولة مرة أخرى.</p></div>`;
+        } finally {
+            analysisLoader.style.display = 'none';
+            updateAnalyzeButtonState();
+        }
+    });
+
+    function displayAnalysisResult(data) {
+        analysisResultContainer.innerHTML = ''; // Clear previous results
+        const card = document.createElement('div');
+        card.className = 'analysis-card';
+
+        let recommendationsHtml = '';
+        if (data.recommendations && data.recommendations.length > 0) {
+            const clinicInfo = clinicMap.get(data.recommendations[0].id);
+            if (clinicInfo) {
+                recommendationsHtml = `
+                    <h3 class="analysis-section-title">العيادة الموصى بها</h3>
+                    <div class="recommendation-header" style="margin-bottom: 15px;">
+                        <div class="icon">${clinicInfo.isSvg ? `<div class="svg-icon" style="-webkit-mask-image: url(/icons/${clinicInfo.icon}); mask-image: url(/icons/${clinicInfo.icon});"></div>` : `<i class="fa-solid ${clinicInfo.icon}"></i>`}</div>
+                        <h3>${clinicInfo.name}</h3>
+                    </div>
+                    <p>${data.recommendations[0].reason}</p>
+                `;
+                const button = document.createElement('button');
+                button.className = 'go-to-btn';
+                button.innerHTML = `اذهب إلى عيادة ${clinicInfo.name} <i class="fa-solid fa-arrow-down"></i>`;
+                button.onclick = () => {
+                    const clinicSectionId = `clinic-${data.recommendations[0].id.replace(/[()\s]/g, '-')}`;
+                    document.getElementById(clinicSectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                // We will append this button later
+            }
+        }
+        
+        card.innerHTML = `
+            <div class="disclaimer">
+                <i class="fa-solid fa-triangle-exclamation"></i> <strong>تنبيه هام:</strong> هذا التحليل هو مجرد إرشاد أولي مقدم من مساعد ذكي ولا يغني إطلاقًا عن استشارة الطبيب المختص. النتائج النهائية يجب أن تكون من خلال فحص طبي دقيق.
+            </div>
+
+            <h3 class="analysis-section-title">شرح مبسط للتقرير</h3>
+            <p>${data.interpretation || 'لم يتمكن المساعد من تقديم شرح.'}</p>
+
+            <h3 class="analysis-section-title">نصائح وإرشادات مؤقتة</h3>
+            <ul>
+                ${data.temporary_advice ? data.temporary_advice.map(item => `<li>${item}</li>`).join('') : '<li>لا توجد نصائح محددة.</li>'}
+            </ul>
+            
+            ${recommendationsHtml}
+        `;
+
+        if (data.recommendations && data.recommendations.length > 0) {
+             const clinicInfo = clinicMap.get(data.recommendations[0].id);
+             if(clinicInfo){
+                const button = document.createElement('button');
+                button.className = 'go-to-btn';
+                button.style.marginTop = '15px';
+                button.innerHTML = `اذهب إلى عيادة ${clinicInfo.name} <i class="fa-solid fa-arrow-down"></i>`;
+                button.onclick = () => {
+                    const clinicSectionId = `clinic-${data.recommendations[0].id.replace(/[()\s]/g, '-')}`;
+                    document.getElementById(clinicSectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                card.appendChild(button);
+             }
+        }
+
+        analysisResultContainer.appendChild(card);
     }
 });
 </script>
