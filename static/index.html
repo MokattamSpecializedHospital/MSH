@@ -44,8 +44,7 @@
     }
     .logo-container { text-align: center; margin: -25px -25px 25px -25px; }
     .logo-image { width: 100%; height: auto; }
-
-    /* --- تصميم احترافي جديد للمعلومات --- */
+    
     .info-professional {
         background-color: #f8f9fa;
         border-radius: 10px;
@@ -115,14 +114,8 @@
         animation: sheen 3s infinite;
     }
 
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-    }
-    @keyframes sheen {
-        0% { left: -60%; }
-        100% { left: 140%; }
-    }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes sheen { 0% { left: -60%; } 100% { left: 140%; } }
 
     .recommendation-header .icon .svg-icon {
         width: 100%;
@@ -181,6 +174,29 @@
     .whatsapp-btn { display: inline-block; background-color: var(--whatsapp-green); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 16px; transition: transform 0.2s; }
     .whatsapp-btn:hover { transform: scale(1.05); }
     .whatsapp-btn i { margin-left: 10px; }
+    
+    /* --- CSS الجديد الخاص بقسم الخريطة --- */
+    .location-section {
+        margin-top: 40px;
+        text-align: center;
+    }
+    .location-section h2 {
+        font-size: 20px;
+        color: var(--dark-green);
+        margin-bottom: 15px;
+    }
+    .location-map iframe {
+        width: 100%;
+        height: 300px;
+        border: 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .location-address {
+        margin-top: 15px;
+        font-size: 16px;
+        color: var(--text-muted);
+    }
 </style>
 </head>
 <body>
@@ -253,6 +269,18 @@
             تواصل معنا <i class="fab fa-whatsapp"></i>
         </a>
     </div>
+
+    <!-- قسم الخريطة الجديد -->
+    <div class="location-section">
+        <h2>موقعنا على الخريطة</h2>
+        <div class="location-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.793393278571!2d31.29341517555319!3d30.01416997493771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839b1d964f43b%3A0x7d6a5a9478f7a8c!2sMokattam%20Specialized%20Hospital!5e0!3m2!1sen!2seg!4v1693175510427!5m2!1sen!2seg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p class="location-address">
+            مستشفى المقطم التخصصي، شارع 9، الأباجية، المقطم، محافظة القاهرة 4413430
+        </p>
+    </div>
+
     <div class="footer-image-container">
         <img src="https://i.ibb.co/Mx1BZJn3/C.png" alt="Hospital Contracts" class="footer-image">
     </div>
