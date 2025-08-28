@@ -185,17 +185,33 @@
         color: var(--dark-green);
         margin-bottom: 15px;
     }
-    .location-map iframe {
+    .location-map {
+        position: relative; /* Required for the overlay */
         width: 100%;
         height: 300px;
-        border: 0;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden; /* Ensures the iframe corners are also rounded */
+    }
+    .location-map iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+    .map-link-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10; /* Places the link on top of the map */
+        cursor: pointer;
     }
     .location-address {
         margin-top: 15px;
         font-size: 16px;
         color: var(--text-muted);
+        line-height: 1.7;
     }
 </style>
 </head>
@@ -225,8 +241,8 @@
             <div class="info-item">
                 <i class="fa-solid fa-map-marker-alt"></i>
                 <div class="info-item-text">
-                    العنوان: <strong>شارع ٩ - المقطم</strong>
-                    <span class="en">Address: Street 9, Mokattam</span>
+                    العنوان: <strong>شارع 9 - المقطم - القاهرة</strong>
+                    <span class="en">Address: Street 9, Mokattam, Cairo</span>
                 </div>
             </div>
             <div class="info-item">
@@ -274,10 +290,12 @@
     <div class="location-section">
         <h2>موقعنا على الخريطة</h2>
         <div class="location-map">
+            <!-- This link overlay makes the entire map clickable -->
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Mokattam+Specialized+Hospital&destination_place_id=ChIJsb2W2bGRWBQRfNp6X3j_qMw" target="_blank" class="map-link-overlay" title="اضغط لفتح خرائط جوجل"></a>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.793393278571!2d31.29341517555319!3d30.01416997493771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839b1d964f43b%3A0x7d6a5a9478f7a8c!2sMokattam%20Specialized%20Hospital!5e0!3m2!1sen!2seg!4v1693175510427!5m2!1sen!2seg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <p class="location-address">
-            مستشفى المقطم التخصصي، شارع 9، الأباجية، المقطم، محافظة القاهرة 4413430
+            شارع 9 - مستشفى المقطم التخصصي - المقطم - القاهرة
         </p>
     </div>
 
