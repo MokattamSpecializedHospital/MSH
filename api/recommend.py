@@ -67,7 +67,7 @@ class handler(BaseHTTPRequestHandler):
             {{
               "recommendations": [
                 {{
-                  "id": "ID_العيادة_الأساسية",
+                  "id": "ID_العيادة_أساسية",
                   "reason": "شرح سبب اختيار العيادة الأساسية هنا."
                 }},
                 {{
