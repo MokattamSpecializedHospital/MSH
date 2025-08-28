@@ -14,14 +14,14 @@
 <style>
     :root {
         --dark-green: #2a6465;
-        --gold: #fcd88f;
+        --orange: #f9a825; /* اللون البرتقالي الجديد */
         --white: #ffffff;
         --text-dark: #212529;
         --text-muted: #6c757d;
         --whatsapp-green: #25D366;
         --danger-red: #dc3545;
         --primary-glow: rgba(42, 100, 101, 0.4);
-        --gold-glow: rgba(252, 216, 143, 0.7);
+        --orange-glow: rgba(249, 168, 37, 0.7);
     }
     html { scroll-behavior: smooth; }
     body {
@@ -72,19 +72,27 @@
         gap: 15px;
     }
     .info-item { display: flex; align-items: center; gap: 15px; line-height: 1.6; }
-    .info-item i { font-size: 22px; color: var(--gold); width: 25px; text-align: center; }
+    .info-item i { font-size: 22px; color: var(--dark-green); width: 25px; text-align: center; }
     .info-item-text strong { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.1em; }
     .info-item-text .en { font-family: 'Poppins', sans-serif; font-size: 0.8em; color: var(--text-muted); display: block; }
 
     .feature-box { text-align: center; margin-bottom: 25px; padding: 20px; background-color: #e6f3f3; border: 1px solid var(--dark-green); border-radius: 10px; }
     .feature-box h2 { font-size: 18px; color: var(--dark-green); margin-top: 0; }
     .feature-box p { font-size: 14px; color: var(--text-muted); }
-    .feature-box textarea, .feature-box input { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; font-size: 14px; margin-bottom: 15px; box-sizing: border-box; }
+    .feature-box textarea, .feature-box input[type="text"] { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; font-family: 'Cairo', sans-serif; font-size: 14px; margin-bottom: 15px; box-sizing: border-box; }
     .feature-box .input-wrapper { position: relative; display: flex; gap: 10px; align-items: center; }
-    .feature-box input { flex-grow: 1; margin-bottom: 0; }
+    .feature-box input[type="text"] { flex-grow: 1; margin-bottom: 0; }
     .feature-box button { background-color: var(--dark-green); color: var(--white); border: none; padding: 10px 20px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s; margin: 5px 0; line-height: 1.5; }
     .feature-box button:disabled { background-color: #999; cursor: not-allowed; }
-    .feature-box button.go-to-btn, #doctor-search-btn { background-color: var(--gold); color: var(--dark-green); }
+    .feature-box button.go-to-btn { background-color: var(--orange); color: var(--dark-green); }
+    #doctor-search-btn {
+        background-color: var(--orange);
+        color: var(--dark-green);
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        font-size: 18px;
+    }
     .feature-box button:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); }
     
     #recommendation-result-container, #analysis-result-container { margin-top: 15px; }
@@ -140,13 +148,13 @@
     .nav-btn:hover { background: rgba(255,255,255,0.4); }
     
     .doctor-card { display: block; margin-bottom: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #eee; transition: all 0.3s; }
-    .doctor-card.highlight { box-shadow: 0 0 15px 5px var(--gold-glow); transform: scale(1.02); border-color: var(--gold); }
+    .doctor-card.highlight { box-shadow: 0 0 15px 5px var(--orange-glow); transform: scale(1.02); border-color: var(--orange); }
     .doctor-card .doctor-name { background-color: #f8f9fa; text-align: center; padding: 12px; font-size: 16px; font-weight: 600; }
     .doctor-card .appointment { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; font-size: 14px; border-bottom: 1px solid #eee; }
     .doctor-card .appointment:last-child { border-bottom: none; }
     .doctor-card .day { font-weight: bold; color: var(--dark-green); text-align: right; }
     .doctor-card .day .en, .doctor-card .doctor-name .en { font-family: 'Poppins', sans-serif; font-size: 0.85em; font-weight: 400; margin-top: 2px; color: #555;}
-    .doctor-card .time { font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 15px; background-color: var(--gold); color: var(--dark-green); padding: 3px 10px; border-radius: 5px; }
+    .doctor-card .time { font-weight: 600; font-family: 'Poppins', sans-serif; font-size: 15px; background-color: #f0f2f5; color: var(--dark-green); padding: 3px 10px; border-radius: 5px; }
     .en { font-family: 'Poppins', sans-serif; font-size: 0.9em; font-weight: 400; margin-top: 2px; }
     .footer-image-container { margin: 40px -25px -25px -25px; }
     .footer-image { width: 100%; height: auto; display: block; }
@@ -193,7 +201,7 @@
     .analysis-card { background-color: var(--white); border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: right; }
     .analysis-card .disclaimer { background-color: #fff3cd; border-right: 5px solid #ffc107; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
     .analysis-card .disclaimer strong { color: #856404; }
-    .analysis-section-title { font-size: 18px; font-weight: 700; color: var(--dark-green); margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid var(--gold); }
+    .analysis-section-title { font-size: 18px; font-weight: 700; color: var(--dark-green); margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid var(--orange); }
     .analysis-card ul { padding-right: 20px; margin: 0; }
     .analysis-card li { margin-bottom: 10px; line-height: 1.8; }
 </style>
@@ -249,7 +257,7 @@
         <h2>البحث باسم الطبيب</h2>
         <div class="input-wrapper">
             <input type="text" id="doctor-search-input" placeholder="اكتب اسم الطبيب هنا...">
-            <button id="doctor-search-btn">ابحث</button>
+            <button id="doctor-search-btn" title="ابحث"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <div id="search-results-container" style="display: none;"></div>
     </div>
@@ -498,7 +506,11 @@ document.addEventListener('DOMContentLoaded', function() {
         getRecommendationBtn.disabled = true;
 
         try {
-            const response = await fetch("/api/recommend", {
+            // !! هام جداً !!
+            // استبدل هذا الرابط بالرابط الكامل للـ function التي قمت بنشرها على Vercel أو Netlify
+            const API_ENDPOINT = "https://your-deployment-url.vercel.app/api/recommend";
+
+            const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symptoms: symptomsText })
@@ -589,9 +601,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const analysisLoader = document.getElementById('analysis-loader');
     const analysisResultContainer = document.getElementById('analysis-result-container');
     const userNotesInput = document.getElementById('user-notes-input');
-    let uploadedFiles = []; // To store file data and base64 strings
+    let uploadedFiles = [];
 
-    // Drag and Drop functionality
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         uploadArea.addEventListener(eventName, preventDefaults, false);
     });
@@ -619,7 +630,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleFiles(files) {
         [...files].forEach(file => {
-            // Add a file size limit (e.g., 5MB)
             if (file.size > 5 * 1024 * 1024) {
                 alert(`الملف "${file.name}" كبير جدًا (أكثر من 5 ميجابايت) ولن يتم رفعه.`);
                 return;
@@ -629,7 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const fileData = {
                     name: file.name,
                     base64: e.target.result,
-                    mimeType: file.type || 'application/octet-stream' // Fallback MIME type
+                    mimeType: file.type || 'application/octet-stream'
                 };
                 uploadedFiles.push(fileData);
                 renderPreviews();
@@ -648,12 +658,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fileData.mimeType.startsWith('image/')) {
                 filePreviewHtml = `<img src="${fileData.base64}" alt="${fileData.name}">`;
             } else {
-                let iconClass = 'fa-solid fa-file'; // Default icon
-                if (fileData.mimeType.includes('pdf')) {
-                    iconClass = 'fa-solid fa-file-pdf';
-                } else if (fileData.mimeType.includes('word')) {
-                    iconClass = 'fa-solid fa-file-word';
-                }
+                let iconClass = 'fa-solid fa-file';
+                if (fileData.mimeType.includes('pdf')) iconClass = 'fa-solid fa-file-pdf';
+                else if (fileData.mimeType.includes('word')) iconClass = 'fa-solid fa-file-word';
                 filePreviewHtml = `
                     <div class="file-icon">
                         <i class="${iconClass}"></i>
@@ -692,14 +699,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const filesPayload = uploadedFiles.map(file => ({
             mime_type: file.mimeType,
-            data: file.base64.split(',')[1] // Remove the "data:mime/type;base64," part
+            data: file.base64.split(',')[1]
         }));
 
         try {
-            // IMPORTANT: For GitHub Pages, you must deploy the Python script as a serverless function
-            // (e.g., on Vercel, Netlify, or Google Cloud Functions) and replace "/api/analyze"
-            // with the full URL of your deployed function.
-            const response = await fetch("/api/analyze", {
+            // !! هام جداً !!
+            // استبدل هذا الرابط بالرابط الكامل للـ function التي قمت بنشرها على Vercel أو Netlify
+            const API_ENDPOINT = "https://your-deployment-url.vercel.app/api/analyze";
+
+            const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -726,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function displayAnalysisResult(data) {
-        analysisResultContainer.innerHTML = ''; // Clear previous results
+        analysisResultContainer.innerHTML = '';
         const card = document.createElement('div');
         card.className = 'analysis-card';
 
