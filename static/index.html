@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
         recommendationResultContainer.querySelector('.recommendation-card').appendChild(button);
     }
 
-    // --- New AI Analyzer Logic ---
+    // --- AI Analyzer Logic ---
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('report-files-input');
     const previewContainer = document.getElementById('file-preview-container');
@@ -619,12 +619,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleFiles(files) {
         [...files].forEach(file => {
+            // Add a file size limit (e.g., 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert(`الملف "${file.name}" كبير جدًا (أكثر من 5 ميجابايت) ولن يتم رفعه.`);
+                return;
+            }
             const reader = new FileReader();
             reader.onload = (e) => {
                 const fileData = {
                     name: file.name,
                     base64: e.target.result,
-                    mimeType: file.type
+                    mimeType: file.type || 'application/octet-stream' // Fallback MIME type
                 };
                 uploadedFiles.push(fileData);
                 renderPreviews();
@@ -691,9 +696,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }));
 
         try {
-            // NOTE: For GitHub Pages, you'd point to your deployed function URL.
-            // For local testing, you might run the Python script separately.
-            // This example assumes the function is at '/api/analyze'.
+            // IMPORTANT: For GitHub Pages, you must deploy the Python script as a serverless function
+            // (e.g., on Vercel, Netlify, or Google Cloud Functions) and replace "/api/analyze"
+            // with the full URL of your deployed function.
             const response = await fetch("/api/analyze", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -704,7 +709,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (!response.ok) {
-                 const errorData = await response.json().catch(() => ({error: "An unknown error occurred."}));
+                 const errorData = await response.json().catch(() => ({error: "حدث خطأ في الخادم. قد يكون الملف غير مدعوم."}));
                 throw new Error(errorData.error);
             }
 
@@ -729,10 +734,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.recommendations && data.recommendations.length > 0 && data.recommendations[0].id) {
             const clinicInfo = clinicMap.get(data.recommendations[0].id);
             if (clinicInfo) {
+                const iconHtml = clinicInfo.isSvg 
+                    ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinicInfo.icon}); mask-image: url(./icons/${clinicInfo.icon});"></div>`
+                    : `<i class="fa-solid ${clinicInfo.icon}"></i>`;
                 recommendationsHtml = `
                     <h3 class="analysis-section-title">العيادة الموصى بها</h3>
                     <div class="recommendation-header" style="margin-bottom: 15px;">
-                        <div class="icon">${clinicInfo.isSvg ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinicInfo.icon}); mask-image: url(./icons/${clinicInfo.icon});"></div>` : `<i class="fa-solid ${clinicInfo.icon}"></i>`}</div>
+                        <div class="icon">${iconHtml}</div>
                         <h3>${clinicInfo.name}</h3>
                     </div>
                     <p>${data.recommendations[0].reason || 'نوصي بزيارة هذه العيادة للمتابعة.'}</p>
