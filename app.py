@@ -5,9 +5,12 @@ from flask_cors import CORS
 import json
 import base64
 
+# تهيئة تطبيق فلاسك لخدمة الملفات الثابتة من مجلد "static"
+# أي طلب لـ / سيفتح index.html وأي طلب لـ /icons/some-icon.svg سيفتح الملف من static/icons
 app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
+# قائمة العيادات المتاحة
 CLINICS_LIST = """
 "الباطنة-العامة", "غدد-صماء-وسكر", "جهاز-هضمي-ومناظير", "باطنة-وقلب", "الجراحة-العامة",
 "مناعة-وروماتيزم", "نساء-وتوليد", "أنف-وأذن-وحنجرة", "الصدر", "أمراض-الذكورة", "الجلدية",
@@ -16,13 +19,14 @@ CLINICS_LIST = """
 "جراحة-التجميل", "علاج-البواسير-والشرخ-بالليزر", "الأسنان", "السمعيات", "أمراض-الدم"
 """
 
+# المسار الخاص بصفحة الموقع الرئيسية
 @app.route('/')
 def serve_index():
     return send_from_directory('static', 'index.html')
 
+# المسار الخاص بتوصية العيادات بناءً على الأعراض
 @app.route("/api/recommend", methods=["POST"])
 def recommend_clinic():
-    # ... (هذا الجزء سليم لديك) ...
     try:
         data = request.get_json()
         symptoms = data.get('symptoms')
@@ -31,16 +35,17 @@ def recommend_clinic():
         
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
+            print("CRITICAL ERROR: GEMINI_API_KEY is not set in environment variables.")
             return jsonify({"error": "Server configuration error."}), 500
 
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-1.5-flash')
 
         prompt = f"""
-        أنت مساعد طبي خبير ومحترف. مهمتك هي تحليل شكوى المريض بدقة واقتراح أفضل عيادتين بحد أقصى من قائمة العيادات المتاحة.
+        أنت مساعد طبي خبير ومحترف في مستشفى كبير. مهمتك هي تحليل شكوى المريض بدقة واقتراح أفضل عيادتين بحد أقصى من قائمة العيادات المتاحة.
         قائمة معرفات (IDs) العيادات المتاحة هي: [{CLINICS_LIST}]
         شكوى المريض: "{symptoms}"
-        ردك يجب أن يكون بصيغة JSON فقط، بدون أي نصوص إضافية، ويحتوي على قائمة اسمها "recommendations" بداخلها عناصر تحتوي على "id" و "reason".
+        ردك **يجب** أن يكون بصيغة JSON فقط، بدون أي نصوص أو علامات قبله أو بعده، ويحتوي على قائمة اسمها "recommendations" بداخلها عناصر تحتوي على "id" و "reason".
         """
         
         response = model.generate_content(prompt)
@@ -49,9 +54,10 @@ def recommend_clinic():
         return jsonify(json_response)
         
     except Exception as e:
+        print(f"ERROR in /api/recommend: {str(e)}")
         return jsonify({"error": "An internal server error occurred."}), 500
 
-# --- هذا هو الجزء الأهم الذي كان ناقصًا ويجب إضافته ---
+# المسار الخاص بتحليل التقارير الطبية المرفوعة
 @app.route("/api/analyze", methods=["POST"])
 def analyze_report():
     try:
@@ -64,6 +70,7 @@ def analyze_report():
         
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
+            print("CRITICAL ERROR: GEMINI_API_KEY is not set in environment variables.")
             return jsonify({"error": "Server configuration error."}), 500
 
         genai.configure(api_key=api_key)
@@ -97,9 +104,13 @@ def analyze_report():
         return jsonify(json_response)
 
     except json.JSONDecodeError:
+        print(f"ERROR in /api/analyze: JSONDecodeError from Gemini response. Response text: {response.text}")
         return jsonify({"error": "فشل المساعد الذكي في تكوين رد صالح. قد تكون الملفات غير واضحة."}), 500
     except Exception as e:
-        return jsonify({"error": f"حدث خطأ غير متوقع في الخادم: {str(e)}"}), 500
+        print(f"ERROR in /api/analyze: {str(e)}")
+        return jsonify({"error": f"حدث خطأ غير متوقع في الخادم"}), 500
 
+# هذا الجزء يسمح بتشغيل التطبيق محلياً للاختبار إذا أردت
 if __name__ == "__main__":
+    # عند التشغيل على Cloud Run، سيتم استخدام Gunicorn بدلاً من هذا.
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
