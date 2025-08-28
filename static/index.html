@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title.className = 'section-title';
             
             const iconHtml = clinic.isSvg 
-                ? `<div class="svg-icon" style="-webkit-mask-image: url(/icons/${clinic.icon}); mask-image: url(/icons/${clinic.icon});"></div>`
+                ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinic.icon}); mask-image: url(./icons/${clinic.icon});"></div>`
                 : `<i class="fa-solid ${clinic.icon}"></i>`;
             
             title.innerHTML = `
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.className = `recommendation-card ${isPrimary ? 'primary-recommendation' : ''}`;
             
             const iconHtml = clinicInfo.isSvg 
-                ? `<div class="svg-icon" style="-webkit-mask-image: url(/icons/${clinicInfo.icon}); mask-image: url(/icons/${clinicInfo.icon});"></div>`
+                ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinicInfo.icon}); mask-image: url(./icons/${clinicInfo.icon});"></div>`
                 : `<i class="fa-solid ${clinicInfo.icon}"></i>`;
 
             card.innerHTML = `
@@ -691,6 +691,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }));
 
         try {
+            // NOTE: For GitHub Pages, you'd point to your deployed function URL.
+            // For local testing, you might run the Python script separately.
+            // This example assumes the function is at '/api/analyze'.
             const response = await fetch("/api/analyze", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -729,7 +732,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 recommendationsHtml = `
                     <h3 class="analysis-section-title">العيادة الموصى بها</h3>
                     <div class="recommendation-header" style="margin-bottom: 15px;">
-                        <div class="icon">${clinicInfo.isSvg ? `<div class="svg-icon" style="-webkit-mask-image: url(/icons/${clinicInfo.icon}); mask-image: url(/icons/${clinicInfo.icon});"></div>` : `<i class="fa-solid ${clinicInfo.icon}"></i>`}</div>
+                        <div class="icon">${clinicInfo.isSvg ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinicInfo.icon}); mask-image: url(./icons/${clinicInfo.icon});"></div>` : `<i class="fa-solid ${clinicInfo.icon}"></i>`}</div>
                         <h3>${clinicInfo.name}</h3>
                     </div>
                     <p>${data.recommendations[0].reason || 'نوصي بزيارة هذه العيادة للمتابعة.'}</p>
