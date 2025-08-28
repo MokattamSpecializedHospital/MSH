@@ -14,7 +14,7 @@
 <style>
     :root {
         --dark-green: #2a6465;
-        --orange: #f9a825; /* اللون البرتقالي الأساسي الجديد */
+        --orange: #f9a825;
         --white: #ffffff;
         --text-dark: #212529;
         --text-muted: #6c757d;
@@ -113,8 +113,16 @@
         overflow: hidden; 
     }
     .recommendation-card.primary-recommendation .recommendation-header .icon { animation: pulse 1.5s infinite ease-in-out; }
-
+    
+    /* === THIS IS THE RESTORED SHEEN EFFECT === */
+    .recommendation-card.primary-recommendation .recommendation-header .icon::after {
+        content: ''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+        transform: rotate(35deg); animation: sheen 3s infinite;
+    }
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes sheen { 0% { left: -60%; } 100% { left: 140%; } }
+    /* === END OF RESTORED EFFECT === */
 
     .recommendation-header .icon .svg-icon {
         width: 100%; height: 100%; -webkit-mask-size: contain; mask-size: contain;
