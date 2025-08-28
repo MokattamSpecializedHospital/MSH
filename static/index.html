@@ -296,69 +296,75 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Full clinic and doctor data
+    // =================================================================================
+    // START: DOCTOR AND CLINIC DATA (MATCHING THE PROVIDED FILE EXACTLY)
+    // =================================================================================
     const allClinicsFullData = [
-        { id: "الباطنة-العامة", doctors: [ { name: "د. ممدوح القاسم (استشاري)", en_name: "Dr. Mamdouh Elkassem (Consultant)", schedule: { "السبت": "04:30 PM", "الأحد": "02:00 PM", "الإثنين": "07:00 PM", "الثلاثاء": "12:00 PM", "الأربعاء": "07:00 PM", "الخميس": "12:00 PM" } }, { name: "د. نيفين الفولي (استشاري)", en_name: "Dr. Nevine Elfouly (Consultant)", schedule: { "الأحد": "08:00 PM", "الأربعاء": "02:00 PM" } }, { name: "د. سمير كامل (استشاري)", en_name: "Dr. Samir Kamel (Consultant)", schedule: { "السبت": "03:30 PM", "الإثنين": "03:30 PM", "الأربعاء": "03:30 PM" } }, { name: "د. مجدي لبيب (استشاري)", en_name: "Dr. Magdy Labib (Consultant)", schedule: { "السبت": "12:00 PM", "الأحد": "12:00 PM", "الإثنين": "12:00 PM", "الثلاثاء": "05:00 PM", "الخميس": "05:00 PM" } }, { name: "د. ولاء الباز (استشاري)", en_name: "Dr. Walaa Elbaz (Consultant)", schedule: { "السبت": "08:00 PM", "الثلاثاء": "08:00 PM", "الخميس": "02:00 PM" } }, { name: "د. عمرو صدقي (استشاري)", en_name: "Dr. Amr Sedky (Consultant)", schedule: { "الإثنين": "02:00 PM", "الخميس": "04:00 PM" } }, { name: "د. مروه محمد (استشاري)", en_name: "Dr. Marwa Mohamed (Consultant)", schedule: { "الخميس": "08:00 PM" } }, { name: "د. سالي سالم (اخصائي)", en_name: "Dr. Sally Salem (Specialist)", schedule: { "الأحد": "08:00 PM", "الإثنين": "05:00 PM" } }, { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar (Consultant)", schedule: { "الإثنين": "01:00 PM" } }, { name: "د. حاتم عبد العزيز (استشاري)", en_name: "Dr. Hatem Abdelaziz (Consultant)", schedule: { "الأحد": "03:00 PM", "الإثنين": "04:30 PM", "الأربعاء": "05:00 PM", "الخميس": "07:30 PM", "الجمعة": "03:00 PM" } } ] },
-        { id: "غدد-صماء-وسكر", doctors: [ { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar (Consultant)", schedule: { "الإثنين": "01:00 PM" } }, { name: "د. سالي سالم (اخصائي)", en_name: "Dr. Sally Salem (Specialist)", schedule: { "السبت": "08:00 PM", "الإثنين": "05:00 PM" } }, { name: "د. احمد فياض (استشاري)", en_name: "Dr. Ahmed Fayad (Consultant)", schedule: { "الأحد": "06:00 PM", "الأربعاء": "06:00 PM" } } ] },
-        { id: "جهاز-هضمي-ومناظير", doctors: [ { name: "د. الشيماء مسعد (استشاري)", en_name: "Dr. Alshaymaa Mosaad (Consultant)", schedule: { "الخميس": "01:00 PM" } }, { name: "د. مريم مسعد (استشاري)", en_name: "Dr. Mariam Mosaad (Consultant)", schedule: { "الإثنين": "08:00 PM" } }, { name: "د. مروه محمد (استشاري)", en_name: "Dr. Marwa Mohamed (Consultant)", schedule: { "الخميس": "08:00 PM" } }, { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar (Consultant)", schedule: { "الإثنين": "01:00 PM" } }, { name: "د. عماد عبد الستار (استشاري)", en_name: "Dr. Emad Abdelsattar (Consultant)", schedule: { "الأحد": "06:00 PM" } } ] },
-        { id: "باطنة-وقلب", doctors: [ { name: "د. اسامه الجيار (استشاري)", en_name: "Dr. Osama Elgayyar (Consultant)", schedule: { "السبت": "12:30 PM", "الأربعاء": "12:30 PM" } } ] },
-        { id: "الجراحة-العامة", doctors: [ { name: "د. احمد شبل (استشاري)", en_name: "Dr. Ahmed Shebl (Consultant)", schedule: { "السبت": "08:00 PM", "الأربعاء": "02:00 PM" } }, { name: "د. نهى عبد الباقي (استشاري)", en_name: "Dr. Noha Abdelbaky (Consultant)", schedule: { "الإثنين": "06:00 PM", "الثلاثاء": "06:00 PM" } }, { name: "د. احمد عبد العال (استشاري)", en_name: "Dr. Ahmed Abdel-aal (Consultant)", schedule: { "الإثنين": "02:00 PM" } }, { name: "د. مينا إسحاق (استشاري)", en_name: "Dr. Mina Ishak (Consultant)", schedule: { "السبت": "06:30 PM", "الإثنين": "06:30 PM" } }, { name: "د. هشام وفقي (استشاري)", en_name: "Dr. Hesham Wafky (Consultant)", schedule: { "الأحد": "04:00 PM" } }, { name: "د. احمد عصام (اخصائي)", en_name: "Dr. Ahmed Essam (Specialist)", schedule: { "الخميس": "06:30 PM" } }, { name: "د. احمد فتحي (استشاري)", en_name: "Dr. Ahmed Fathy (Consultant)", schedule: { "السبت": "08:00 PM", "الأربعاء": "08:00 PM", "الخميس": "08:00 PM" } }, { name: "د. رجب صلاح (استشاري)", en_name: "Dr. Ragab Salah (Consultant)", schedule: { "الإثنين": "04:00 PM", "الخميس": "04:00 PM" } }, { name: "د. سيد الجارحي (استشاري)", en_name: "Dr. Sayed Elgarhy (Consultant)", schedule: { "الإثنين": "08:30 PM", "الخميس": "02:00 PM" } }, { name: "د. عادل لاشين (استشاري)", en_name: "Dr. Adel Lashin (Consultant)", schedule: { "الأحد": "02:00 PM", "الثلاثاء": "08:00 PM" } }, { name: "محمد عبد الكريم قاسم (استشاري)", en_name: "Mohamed Abdelkarim (Consultant)", schedule: { "الأحد": "08:30 PM", "الأربعاء": "08:30 PM" } }, { name: "دينا الجمال (اخصائي)", en_name: "Dina Elgamal (Specialist)", schedule: { "الأربعاء": "06:00 PM", "الجمعة": "05:00 PM" } }, { name: "معتز محمد (اخصائي)", en_name: "Moataz Mohamed (Specialist)", schedule: { "الأربعاء": "08:00 PM", "الجمعة": "08:00 PM" } }, { name: "منى ابوزيد (استشاري)", en_name: "Mona Abouzid (Consultant)", schedule: { "الإثنين": "08:00 PM", "الأربعاء": "08:00 PM", "الجمعة": "02:00 PM" } } ] },
-        { id: "مناعة-وروماتيزم", doctors: [ { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar (Consultant)", schedule: { "الإثنين": "01:00 PM" } }, { name: "د. ولاء الباز (استشاري)", en_name: "Dr. Walaa Elbaz (Consultant)", schedule: { "السبت": "08:00 PM", "الثلاثاء": "08:00 PM", "الخميس": "02:00 PM" } } ] },
-        { id: "نساء-وتوليد", doctors: [ { name: "د. كوثر علي (اخصائي)", en_name: "Dr. Kawthar Ali (Specialist)", schedule: { "السبت": "04:00 PM", "الإثنين": "05:00 PM" } }, { name: "د. احمد طايع (استشاري)", en_name: "Dr. Ahmed Tayea (Consultant)", schedule: { "الثلاثاء": "05:30 PM", "الأربعاء": "06:30 PM" } }, { name: "د. منار خالد (استشاري)", en_name: "Dr. Manar Khaled (Consultant)", schedule: { "الأربعاء": "02:00 PM" } }, { name: "د. اميره سعيد (اخصائي)", en_name: "Dr. Amira Saeed (Specialist)", schedule: { "الأحد": "02:00 PM", "الخميس": "01:00 PM" } }, { name: "د. محمد مكي (استشاري)", en_name: "Dr. Mohamed Makky (Consultant)", schedule: { "الأحد": "05:00 PM", "الأربعاء": "04:00 PM" } } ] },
-        { id: "أنف-وأذن-وحنجرة", doctors: [ { name: "د. احمد عماد (اخصائي)", en_name: "Dr. Ahmed Emad (Specialist)", schedule: { "السبت": "02:00 PM" } }, { name: "د. محمود عبدالحميد (استشاري)", en_name: "Dr. Mahmoud Abdelhamid (Consultant)", schedule: { "الخميس": "06:00 PM" } }, { name: "د. توفيق الخولي (استشاري)", en_name: "Dr. Tawfik Elkhouly (Consultant)", schedule: { "الإثنين": "04:00 PM" } }, { name: "د. محمد هلالي (استشاري)", en_name: "Dr. Mohamed Helaly (Consultant)", schedule: { "الإثنين": "08:00 PM", "الأربعاء": "04:00 PM" } }, { name: "د. أشرف رأفت (استشاري)", en_name: "Dr. Ashraf Raafat (Consultant)", schedule: { "الثلاثاء": "06:00 PM", "الجمعة": "03:00 PM" } }, { name: "د. احمد امين (استشاري)", en_name: "Dr. Ahmed Amin (Consultant)", schedule: { "السبت": "08:00 PM", "الخميس": "08:00 PM" } }, { name: "د. سامح نظمي (استشاري)", en_name: "Dr. Sameh Nazmy (Consultant)", schedule: { "الأحد": "08:30 PM", "الثلاثاء": "08:30 PM", "الأربعاء": "08:30 PM" } } ] },
-        { id: "الصدر", doctors: [ { name: "د. مني الهادي (استشاري)", en_name: "Dr. Mona Elhady (Consultant)", schedule: { "الأحد": "05:00 PM", "الإثنين": "02:00 PM", "الأربعاء": "02:00 PM" } }, { name: "د. احمد سيف (استشاري)", en_name: "Dr. Ahmed Seif (Consultant)", schedule: { "الإثنين": "04:00 PM", "الخميس": "08:00 PM", "الجمعة": "03:00 PM" } } ] },
-        { id: "أمراض-الذكورة", doctors: [ { name: "د. شريف البرعي (استشاري)", en_name: "Dr. Sherif Elborai (Consultant)", schedule: { "الأحد": "06:30 PM" } } ] },
-        { id: "الجلدية", doctors: [ { name: "د. محمد هاشم البطريق (استشاري)", en_name: "Dr. Mohamed Hashem (Consultant)", schedule: { "السبت": "12:00 PM" } }, { name: "د. لبني جمال (اخصائي)", en_name: "Dr. Lobna Gamal (Specialist)", schedule: { "الإثنين": "08:30 PM", "الأربعاء": "01:00 PM" } }, { name: "د. اميره عبدالرحمن (استشاري)", en_name: "Dr. Amira Abdelrahman (Consultant)", schedule: { "الأحد": "07:00 PM", "الثلاثاء": "06:30 PM", "الخميس": "02:00 PM" } }, { name: "د. ميرفت بشري (استشاري)", en_name: "Dr. Mervat Bishri (Consultant)", schedule: { "السبت": "05:30 PM", "الإثنين": "05:30 PM", "الأربعاء": "05:30 PM", "الخميس": "05:30 PM" } }, { name: "د. مالك فتحي (استشاري)", en_name: "Dr. Malek Fathy (Consultant)", schedule: { "السبت": "08:30 PM", "الثلاثاء": "08:30 PM" } } ] },
-        { id: "العظام", doctors: [ { name: "د. محمد الديب (استشاري)", en_name: "Dr. Mohamed Eldeeb (Consultant)", schedule: { "الإثنين": "12:30 PM", "الثلاثاء": "02:30 PM", "الخميس": "08:00 PM" } }, { name: "د. اسامه ثابت (استشاري)", en_name: "Dr. Osama Thabet (Consultant)", schedule: { "الأحد": "06:00 PM", "الإثنين": "12:00 PM", "الجمعة": "01:30 PM" } }, { name: "د. احمد ريان (استشاري)", en_name: "Dr. Ahmed Rayan (Consultant)", schedule: { "الخميس": "11:30 AM" } }, { name: "د. محمد زكريا (استشاري)", en_name: "Dr. Mohamed Zakaria (Consultant)", schedule: { "السبت": "03:00 PM", "الأربعاء": "03:00 PM" } }, { name: "د. عادل عبدالغني (استشاري)", en_name: "Dr. Adel Abdelghany (Consultant)", schedule: { "الخميس": "04:00 PM" } }, { name: "د. احمد سعيد خليل (استشاري)", en_name: "Dr. Ahmed Said Khalil (Consultant)", schedule: { "الأربعاء": "01:00 PM" } }, { name: "د. محمد صلاح (استشاري)", en_name: "Dr. Mohamed Salah (Consultant)", schedule: { "السبت": "03:00 PM", "الإثنين": "08:00 PM", "الجمعة": "03:00 PM" } }, { name: "د. عبدالفتاح الديب (استشاري)", en_name: "Dr. Abdelfattah Eldeeb (Consultant)", schedule: { "الأحد": "05:00 PM", "الثلاثاء": "02:00 PM" } }, { name: "د. كريم سمير (استشاري)", en_name: "Dr. Karim Samir (Consultant)", schedule: { "الإثنين": "04:00 PM" } }, { name: "د. على عماره (استشاري)", en_name: "Dr. Ali Emara (Consultant)", schedule: { "السبت": "08:00 PM", "الأحد": "08:00 PM" } }, { name: "د. محمود الملاح (استشاري)", en_name: "Dr. Mahmoud Elmallah (Consultant)", schedule: { "السبت": "12:00 PM", "الثلاثاء": "12:00 PM" } }, { name: "د. سامي مصيلحي (استشاري)", en_name: "Dr. Samy Moselhy (Consultant)", schedule: { "الإثنين": "05:00 PM", "الأربعاء": "08:00 PM" } }, { name: "د. محمد عبدالعظيم (استشاري)", en_name: "Dr. Mohamed Abdelazim (Consultant)", schedule: { "الأربعاء": "05:00 PM" } }, { name: "د. محمد عويس (اخصائي)", en_name: "Dr. Mohamed Oweiss (Specialist)", schedule: { "الإثنين": "06:00 PM", "الخميس": "02:00 PM" } }, { name: "د. زياد خالد (استشاري)", en_name: "Dr. Ziad Khaled (Consultant)", schedule: { "الخميس": "06:00 PM" } }, { name: "د. عمرو ابوالمجد (استشاري)", en_name: "Dr. Amr Aboulmagd (Consultant)", schedule: { "الإثنين": "07:30 PM", "الثلاثاء": "11:00 AM" } } ] },
-        { id: "المخ-والأعصاب-باطنة", doctors: [ { name: "د. احمد سرحان (استشاري)", en_name: "Dr. Ahmed Sarhan (Consultant)", schedule: { "السبت": "08:00 PM", "الإثنين": "08:00 PM" } }, { name: "د. منال حافظ (استشاري)", en_name: "Dr. Manal Hafez (Consultant)", schedule: { "الأحد": "05:30 PM", "الأربعاء": "05:30 PM" } } ] },
-        { id: "جراحة-المخ-والأعصاب", doctors: [ { name: "د. رباب يحيي (استشاري)", en_name: "Dr. Rabab Yehia (Consultant)", schedule: { "السبت": "04:30 PM" } }, { name: "د. احمد يسري (استشاري)", en_name: "Dr. Ahmed Yousry (Consultant)", schedule: { "السبت": "07:00 PM" } }, { name: "د. حسين زكريا (استشاري)", en_name: "Dr. Hussein Zakaria (Consultant)", schedule: { "الأحد": "08:30 PM", "الأربعاء": "08:30 PM" } } ] },
-        { id: "المسالك-البولية", doctors: [ { name: "د. السيد صالح (استشاري)", en_name: "Dr. Elsayed Saleh (Consultant)", schedule: { "السبت": "04:30 PM", "الأربعاء": "03:00 PM" } }, { name: "د. احمد سادات (استشاري)", en_name: "Dr. Ahmed Sadat (Consultant)", schedule: { "السبت": "07:30 PM", "الأربعاء": "07:30 PM" } }, { name: "د. محمد طلعت (استشاري)", en_name: "Dr. Mohamed Talaat (Consultant)", schedule: { "الأحد": "07:00 PM", "الأربعاء": "07:00 PM" } }, { name: "د. وليد موسى (استشاري)", en_name: "Dr. Walid Moussa (Consultant)", schedule: { "الإثنين": "05:30 PM", "الخميس": "05:30 PM" } } ] },
-        { id: "الأوعية-الدموية", doctors: [ { name: "د. محمد حاتم (استشاري)", en_name: "Dr. Mohamed Hatem (Consultant)", schedule: { "السبت": "12:00 PM", "الثلاثاء": "12:00 PM" } }, { name: "د. نهال فاروق (استشاري)", en_name: "Dr. Nehal Farouk (Consultant)", schedule: { "السبت": "02:00 PM", "الأربعاء": "02:00 PM" } }, { name: "د. شريف شرابي (استشاري)", en_name: "Dr. Sherif Sharaby (Consultant)", schedule: { "الأحد": "07:00 PM", "الثلاثاء": "07:00 PM", "الخميس": "08:00 PM" } }, { name: "د. محمد اسامه زايد (استشاري)", en_name: "Dr. Mohamed Osama Zayed (Consultant)", schedule: { "الأربعاء": "06:00 PM" } } ] },
-        { id: "الأطفال", doctors: [ { name: "د. نسرين عبدالرحمن (استشاري)", en_name: "Dr. Nesrin Abdelrahman (Consultant)", schedule: { "السبت": "01:00 PM", "الإثنين": "01:00 PM", "الثلاثاء": "02:00 PM", "الخميس": "06:30 PM" } }, { name: "د. عبدالحليم بدوي (استشاري)", en_name: "Dr. Abdelhalim Badawy (Consultant)", schedule: { "الإثنين": "01:00 PM", "الثلاثاء": "01:00 PM", "الأربعاء": "06:00 PM", "الخميس": "04:30 PM" } }, { name: "د. محمد عبدالواحد (استشاري)", en_name: "Dr. Mohamed Abdelwahed (Consultant)", schedule: { "الأحد": "05:30 PM", "الإثنين": "05:00 PM" } }, { name: "د. سامح عبدالعزيز (استشاري)", en_name: "Dr. Sameh Abdelaziz (Consultant)", schedule: { "السبت": "05:00 PM", "الأربعاء": "04:00 PM" } }, { name: "د. علي عبدالرافع (استشاري)", en_name: "Dr. Ali Abdelrafie (Consultant)", schedule: { "الإثنين": "08:00 PM", "الثلاثاء": "08:00 PM", "الأربعاء": "08:00 PM" } } ] },
-        { id: "الرمد", doctors: [ { name: "د. محمد صلاح (استشاري)", en_name: "Dr. Mohamed Salah (Consultant)", schedule: { "الإثنين": "07:30 PM", "الثلاثاء": "07:30 PM", "الخميس": "07:30 PM" } }, { name: "د. حنان إسماعيل (استشاري)", en_name: "Dr. Hanan Ismail (Consultant)", schedule: { "السبت": "05:00 PM", "الأربعاء": "06:00 PM" } }, { name: "د. اميره مطاوع (اخصائي)", en_name: "Dr. Amira Motawea (Specialist)", schedule: { "الإثنين": "05:00 PM", "الخميس": "05:00 PM" } }, { name: "د. ميرفت عبدالعظيم (استشاري)", en_name: "Dr. Mervat Abdelazim (Consultant)", schedule: { "الجمعة": "02:30 PM" } }, { name: "د. محمد علي (استشاري)", en_name: "Dr. Mohamed Ali (Consultant)", schedule: { "الأحد": "08:00 PM", "الأربعاء": "08:00 PM" } } ] },
-        { id: "تغذية-الأطفال", doctors: [ { name: "د. نسرين عبدالرحمن (استشاري)", en_name: "Dr. Nesrin Abdelrahman (Consultant)", schedule: { "السبت": "01:00 PM", "الثلاثاء": "02:00 PM", "الخميس": "06:30 PM" } } ] },
-        { id: "مناعة-وحساسية-الأطفال", doctors: [ { name: "د. سامح عبدالعزيز (استشاري)", en_name: "Dr. Sameh Abdelaziz (Consultant)", schedule: { "السبت": "05:00 PM", "الأربعاء": "04:00 PM" } } ] },
-        { id: "القلب", doctors: [ { name: "د. اشرف الأمير (استشاري)", en_name: "Dr. Ashraf Elamir (Consultant)", schedule: { "السبت": "06:00 PM", "الخميس": "08:00 PM" } }, { name: "د. محمد ابومندور (استشاري)", en_name: "Dr. Mohamed Abomandour (Consultant)", schedule: { "الأحد": "06:00 PM", "الأربعاء": "06:00 PM" } }, { name: "د. محمد زيدان (اخصائي)", en_name: "Dr. Mohamed Zeidan (Specialist)", schedule: { "الإثنين": "08:00 PM", "الثلاثاء": "08:00 PM" } } ] },
-        { id: "رسم-قلب-بالمجهود-وإيكو", doctors: [ { name: "د. محمد الدمرداش (اخصائي)", en_name: "Dr. Mohamed Demerdash (Specialist)", schedule: { "السبت": "03:00 PM", "الإثنين": "03:00 PM" } } ] },
-        { id: "جراحة-التجميل", doctors: [ { name: "د. اسامه الشحات (استشاري)", en_name: "Dr. Osama Elshahat (Consultant)", schedule: { "الإثنين": "04:30 PM" } } ] },
-        { id: "علاج-البواسير-والشرخ-بالليزر", doctors: [ { name: "د. وائل صابر (استشاري)", en_name: "Dr. Wael Saber (Consultant)", schedule: { "الإثنين": "08:30 PM", "الجمعة": "02:30 PM" } } ] },
-        { id: "الأسنان", doctors: [ { name: "د. محمود اهاب (اخصائي)", en_name: "Dr. Mahmoud Ehab (Specialist)", schedule: { "السبت": "04:00 PM", "الثلاثاء": "06:00 PM", "الأربعاء": "07:00 PM" } }, { name: "د. زياد اشرف (اخصائي)", en_name: "Dr. Ziad Ashraf (Specialist)", schedule: { "السبت": "07:00 PM", "الإثنين": "02:00 PM", "الجمعة": "02:00 PM" } }, { name: "د. نرمين حاتم (اخصائي)", en_name: "Dr. Nermin Hatem (Specialist)", schedule: { "الإثنين": "03:00 PM", "الثلاثاء": "03:00 PM" } }, { name: "د. ريم السيد (اخصائي)", en_name: "Dr. Reem Elsayed (Specialist)", schedule: { "الأحد": "06:00 PM", "الخميس": "06:30 PM" } }, { name: "د. سلمي هاني (استشاري)", en_name: "Dr. Salma Hany (Consultant)", schedule: { "السبت": "12:00 PM" } }, { name: "د. علي محسن (اخصائي)", en_name: "Dr. Ali Mohsen (Specialist)", schedule: { "الإثنين": "06:00 PM", "الأربعاء": "04:00 PM", "الخميس": "04:00 PM" } } ] },
-        { id: "السمعيات", doctors: [ { name: "د. شيماء قابيل (استشاري)", en_name: "Dr. Shaimaa Qabil (Consultant)", schedule: { "الأربعاء": "06:00 PM" } }, { name: "د. هاني عبدالعزيز (استشاري)", en_name: "Dr. Hany Abdelaziz (Consultant)", schedule: { "الأحد": "12:00 PM" } } ] }
+        { id: "الباطنة-العامة", doctors: [ { name: "د. ممدوح القاسم (إستشاري)", en_name: "Dr. Mamdouh Elkassem", schedule: { "السبت": "4:30 م", "الأحد": "2 م", "الثلاثاء": "12 ظ", "الأربعاء": "7 م", "الخميس": "12 ظ" } }, { name: "د. نيفين الفولى (إستشاري)", en_name: "Dr. Nevine Elfouly", schedule: { "الأحد": "8 م" } }, { name: "د. سمير كامل (إستشاري)", en_name: "Dr. Samir Kamel", schedule: { "السبت": "3:30", "الإثنين": "3:30", "الأربعاء": "3:30" } }, { name: "د. مجدي لبيب (إستشاري)", en_name: "Dr. Magdy Labib", schedule: { "السبت": "12 ظ", "الأحد": "12 ظ", "الإثنين": "12 ظ", "الثلاثاء": "5 م", "الخميس": "5 م" } }, { name: "د. ولاء الباز (إستشاري)", en_name: "Dr. Walaa Elbaz", schedule: { "الثلاثاء": "8 م", "الخميس": "2 م" } }, { name: "د. عمرو صدقي (استشاري)", en_name: "Dr. Amr Sedky", schedule: { "الأحد": "2 م", "الخميس": "4 م" } }, { name: "د. مروه محمد (استشاري)", en_name: "Dr. Marwa Mohamed", schedule: { "الخميس": "8 م" } }, { name: "د. سالي سالم (اخصائي)", en_name: "Dr. Sally Salem", schedule: { "الأحد": "8 م", "الإثنين": "5 م" } }, { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar", schedule: { "الإثنين": "1 م" } }, { name: "د. حاتم عبد العزيز (إستشاري)", en_name: "Dr. Hatem Abdelaziz", schedule: { "الأحد": "3 م", "الإثنين": "4:30 م", "الأربعاء": "5 م", "الخميس": "7:30 م", "الجمعة": "3 م" } } ] },
+        { id: "غدد-صماء-وسكر", doctors: [ { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar", schedule: { "الإثنين": "1 م" } }, { name: "د. سالي سالم (اخصائي)", en_name: "Dr. Sally Salem", schedule: { "السبت": "8 م", "الإثنين": "5 م" } }, { name: "د. احمد فياض (إستشاري)", en_name: "Dr. Ahmed Fayad", schedule: { "الأحد": "6 م", "الأربعاء": "6 م" } } ] },
+        { id: "جهاز-هضمي-ومناظير", doctors: [ { name: "د. الشيماء مسعد (استشاري)", en_name: "Dr. Alshaymaa Mosaad", schedule: { "الخميس": "1 ظ" } }, { name: "د. مریم مسعد (استشاري)", en_name: "Dr. Mariam Mosaad", schedule: { "الإثنين": "8 م" } }, { name: "د. مروه محمد (استشاري)", en_name: "Dr. Marwa Mohamed", schedule: { "الخميس": "8 م" } }, { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar", schedule: { "الإثنين": "1 م" } }, { name: "د. عماد عبد الستار (إستشاري)", en_name: "Dr. Emad Abdelsattar", schedule: { "الأحد": "6 م" } } ] },
+        { id: "باطنة-وقلب", doctors: [ { name: "د. اسامه الجيار (إستشاري)", en_name: "Dr. Osama Elgayyar", schedule: { "السبت": "12:30 م", "الأربعاء": "12:30 م" } } ] },
+        { id: "الجراحة-العامة", doctors: [ { name: "د. احمد شبل (إستشاري)", en_name: "Dr. Ahmed Shebl", schedule: { "الأحد": "8 م", "الأربعاء": "2 م" } }, { name: "د. نهى عبد الباقي (إستشاري)", en_name: "Dr. Noha Abdelbaky", schedule: { "الإثنين": "6 م", "الثلاثاء": "6 م" } }, { name: "د. احمد عبد العال (إستشاري)", en_name: "Dr. Ahmed Abdel-aal", schedule: { "الإثنين": "2 م" } }, { name: "د. مينا إسحاق (إستشاري)", en_name: "Dr. Mina Ishak", schedule: { "السبت": "6:30 م", "الإثنين": "6:30 م" } }, { name: "د. هشام وفقي (إستشاري)", en_name: "Dr. Hesham Wafky", schedule: { "الأحد": "4 م" } }, { name: "د. احمد عصام (اخصائي)", en_name: "Dr. Ahmed Essam", schedule: { "الخميس": "6:30 م" } }, { name: "د. احمد فتحي (إستشاري)", en_name: "Dr. Ahmed Fathy", schedule: { "الثلاثاء": "8 م", "الخميس": "8 م" } }, { name: "د. رجب صلاح (استشاري)", en_name: "Dr. Ragab Salah", schedule: { "الإثنين": "4 م", "الخميس": "4 م" } }, { name: "د. سيد الجارحي (استشاري)", en_name: "Dr. Sayed Elgarhy", schedule: { "الإثنين": "8:30 م", "الخميس": "2 م" } }, { name: "د. عادل لاشين (إستشاري)", en_name: "Dr. Adel Lashin", schedule: { "الأحد": "2 م", "الثلاثاء": "8 م" } } ] },
+        { id: "مناعة-وروماتيزم", doctors: [ { name: "د. يوسف نصار (استشاري)", en_name: "Dr. Youssef Nassar", schedule: { "الإثنين": "1 م" } }, { name: "د. ولاء الباز (استشاري)", en_name: "Dr. Walaa Elbaz", schedule: { "السبت": "8 م", "الثلاثاء": "8 م", "الخميس": "2 م" } } ] },
+        { id: "نساء-وتوليد", doctors: [ { name: "د. كوثر على (اخصائي)", en_name: "Dr. Kawthar Ali", schedule: { "الأحد": "4 م", "الإثنين": "5 م" } }, { name: "د. احمد طايع (استشاري)", en_name: "Dr. Ahmed Tayea", schedule: { "الثلاثاء": "5:30 م", "الأربعاء": "6:30 م" } }, { name: "د. منار خالد (استشاري)", en_name: "Dr. Manar Khaled", schedule: { "الأربعاء": "2 م" } }, { name: "د. امیره سعيد (اخصائي)", en_name: "Dr. Amira Saeed", schedule: { "الأحد": "2 م", "الخميس": "1 م" } }, { name: "د. محمد مكي (إستشاري)", en_name: "Dr. Mohamed Makky", schedule: { "الأحد": "5 م", "الأربعاء": "4 م" } }, { name: "د. محمد عبد الكريم قاسم (إستشاري)", en_name: "Dr. Mohamed Abdelkarim", schedule: { "الثلاثاء": "8:30 م" } }, { name: "د. دينا الجمال (اخصائي)", en_name: "Dr. Dina Elgamal", schedule: { "الأربعاء": "5 م" } }, { name: "د. معتز محمد (اخصائي)", en_name: "Dr. Moataz Mohamed", schedule: { "الأربعاء": "8 م", "الجمعة": "2 م" } }, { name: "د. منى ابوزيد (إستشاري)", en_name: "Dr. Mona Abouzid", schedule: { "السبت": "6 م", "الإثنين": "8 م", "الأربعاء": "8 م" } } ] },
+        { id: "أنف-وأذن-وحنجرة", doctors: [ { name: "د. احمد عماد (اخصائي)", en_name: "Dr. Ahmed Emad", schedule: { "السبت": "2 م" } }, { name: "د. محمود عبد الحميد (استشاري)", en_name: "Dr. Mahmoud Abdelhamid", schedule: { "الخميس": "6 م" } }, { name: "د. توفيق الخولي (استشاري)", en_name: "Dr. Tawfik Elkhouly", schedule: { "الإثنين": "4 م" } }, { name: "د. محمد هلالي (إستشاري)", en_name: "Dr. Mohamed Helaly", schedule: { "الإثنين": "8 م", "الأربعاء": "4 م" } }, { name: "د. أشرف رأفت (إستشاري)", en_name: "Dr. Ashraf Raafat", schedule: { "الثلاثاء": "6 م", "الجمعة": "3 م" } }, { name: "د. احمد امين (إستشاري)", en_name: "Dr. Ahmed Amin", schedule: { "السبت": "8 م", "الخميس": "8 م" } }, { name: "د. سامح نظمي (إستشاري)", en_name: "Dr. Sameh Nazmy", schedule: { "الأحد": "8:30 م", "الثلاثاء": "8:30 م", "الأربعاء": "8:30 م" } } ] },
+        { id: "الصدر", doctors: [ { name: "د. مني الهادي (استشاري)", en_name: "Dr. Mona Elhady", schedule: { "الأحد": "5 م", "الإثنين": "2 م", "الأربعاء": "2 م" } }, { name: "د. احمد سيف (إستشاري)", en_name: "Dr. Ahmed Seif", schedule: { "الإثنين": "4 م", "الخميس": "8 م", "الجمعة": "3 م" } } ] },
+        { id: "أمراض-الذكورة", doctors: [ { name: "د. شريف البرعي (إستشاري)", en_name: "Dr. Sherif Elborai", schedule: { "الأحد": "6:30 م" } } ] },
+        { id: "الجلدية", doctors: [ { name: "د. محمد هاشم البطريق (استشاري)", en_name: "Dr. Mohamed Hashem", schedule: { "السبت": "12 ظ" } }, { name: "د. لبني جمال (اخصائي)", en_name: "Dr. Lobna Gamal", schedule: { "الإثنين": "8:30 م", "الأربعاء": "1 م" } }, { name: "د. اميره عبد الرحمن (استشاري)", en_name: "Dr. Amira Abdelrahman", schedule: { "الأحد": "7 م", "الثلاثاء": "6:30 م", "الخميس": "2 م" } }, { name: "د. میرفت بشري (استشاري)", en_name: "Dr. Mervat Bishri", schedule: { "السبت": "5:30 م", "الإثنين": "5:30 م", "الأربعاء": "5:30 م", "الخميس": "5:30 م" } }, { name: "د. مالك فتحي (إستشاري)", en_name: "Dr. Malek Fathy", schedule: { "السبت": "8:30 م", "الثلاثاء": "8:30 م" } } ] },
+        { id: "العظام", doctors: [ { name: "د. محمد الديب (إستشاري)", en_name: "Dr. Mohamed Eldeeb", schedule: { "الأحد": "12:30", "الإثنين": "2:30", "الخميس": "8 م", "الجمعة": "1:30 م" } }, { name: "د. اسامه ثابت (إستشاري)", en_name: "Dr. Osama Thabet", schedule: { "الأحد": "6 م", "الإثنين": "12 ظ" } }, { name: "د. احمد ريان (إستشاري)", en_name: "Dr. Ahmed Rayan", schedule: { "الخميس": "11:30 ص" } }, { name: "د. محمد زكريا (إستشاري)", en_name: "Dr. Mohamed Zakaria", schedule: { "السبت": "3 م", "الأربعاء": "3 م" } }, { name: "د. عادل عبد الغني (إستشاري)", en_name: "Dr. Adel Abdelghany", schedule: { "الخميس": "4 م" } }, { name: "د. احمد سعيد خليل (إستشاري)", en_name: "Dr. Ahmed Said Khalil", schedule: { "الأربعاء": "1 ظ" } }, { name: "د. محمد صلاح (إستشاري)", en_name: "Dr. Mohamed Salah", schedule: { "السبت": "3 م", "الإثنين": "8 م", "الجمعة": "3 م" } }, { name: "د. عبد الفتاح الديب (استشاري)", en_name: "Dr. Abdelfattah Eldeeb", schedule: { "الأحد": "5 م", "الثلاثاء": "2 م" } }, { name: "د. كريم سمير (استشاري)", en_name: "Dr. Karim Samir", schedule: { "الإثنين": "4 م" } }, { name: "د. على عماره (إستشاري)", en_name: "Dr. Ali Emara", schedule: { "السبت": "8 م", "الأحد": "8 م" } }, { name: "د. محمود الملاح (إستشاري)", en_name: "Dr. Mahmoud Elmallah", schedule: { "السبت": "12 ظ", "الثلاثاء": "12 ظ" } }, { name: "د. سامي مصيلحي (إستشاري)", en_name: "Dr. Samy Moselhy", schedule: { "الإثنين": "5 م", "الأربعاء": "8 م" } }, { name: "د. محمد عبد العظيم (استشاري)", en_name: "Dr. Mohamed Abdelazim", schedule: { "الأربعاء": "5 م" } }, { name: "د. محمد عويس (اخصائي)", en_name: "Dr. Mohamed Oweiss", schedule: { "الإثنين": "6 م", "الخميس": "2 م" } }, { name: "د. زیاد خالد (استشاري)", en_name: "Dr. Ziad Khaled", schedule: { "الخميس": "6 م" } }, { name: "د. عمرو ابو المجد (إستشاري)", en_name: "Dr. Amr Aboulmagd", schedule: { "الأحد": "11 ص", "الإثنين": "7:30 م" } } ] },
+        { id: "المخ-والأعصاب-باطنة", doctors: [ { name: "د. احمد سرحان (استشاري)", en_name: "Dr. Ahmed Sarhan", schedule: { "السبت": "8 م", "الإثنين": "8 م" } }, { name: "د. منال حافظ (إستشاري)", en_name: "Dr. Manal Hafez", schedule: { "الأحد": "5:30 م", "الأربعاء": "5:30 م" } } ] },
+        { id: "جراحة-المخ-والأعصاب", doctors: [ { name: "د. رباب يحيي (استشاري)", en_name: "Dr. Rabab Yehia", schedule: { "السبت": "4:30 م" } }, { name: "د. احمد يسري (استشاري)", en_name: "Dr. Ahmed Yousry", schedule: { "السبت": "7 م" } }, { name: "د. حسين زكريا (إستشاري)", en_name: "Dr. Hussein Zakaria", schedule: { "الأحد": "8:30 م", "الأربعاء": "8:30 م" } } ] },
+        { id: "المسالك-البولية", doctors: [ { name: "د. السيد صالح (إستشاري)", en_name: "Dr. Elsayed Saleh", schedule: { "الأحد": "4:30 م", "الثلاثاء": "3 م" } }, { name: "د. احمد سادات (استشاري)", en_name: "Dr. Ahmed Sadat", schedule: { "الأحد": "7:30", "الأربعاء": "7:30" } }, { name: "د. محمد طلعت (إستشاري)", en_name: "Dr. Mohamed Talaat", schedule: { "السبت": "7 م", "الأربعاء": "7 م" } }, { name: "د. وليد موسى (إستشاري)", en_name: "Dr. Walid Moussa", schedule: { "الإثنين": "5:30 م", "الخميس": "5:30 م" } } ] },
+        { id: "الأوعية-الدموية", doctors: [ { name: "د. محمد حاتم (إستشاري)", en_name: "Dr. Mohamed Hatem", schedule: { "الأحد": "12 ظ", "الإثنين": "12 ظ" } }, { name: "د. نهال فاروق (إستشاري)", en_name: "Dr. Nehal Farouk", schedule: { "السبت": "2 م", "الثلاثاء": "2 م" } }, { name: "د. شریف شرابي (إستشاري)", en_name: "Dr. Sherif Sharaby", schedule: { "الإثنين": "7 م", "الثلاثاء": "7 م", "الخميس": "8 م" } }, { name: "د. محمد اسامه زايد (استشاري)", en_name: "Dr. Mohamed Osama Zayed", schedule: { "الأربعاء": "6 م" } } ] },
+        { id: "الأطفال", doctors: [ { name: "د. نسرين عبد الرحمن (إستشاري)", en_name: "Dr. Nesrin Abdelrahman", schedule: { "السبت": "1 م", "الإثنين": "2 م", "الخميس": "6:30 م" } }, { name: "د. عبد الحليم بدوي (إستشاري)", en_name: "Dr. Abdelhalim Badawy", schedule: { "الأحد": "1 م", "الإثنين": "1 م", "الثلاثاء": "6 م", "الأربعاء": "4:30 م" } }, { name: "د. محمد عبد الواحد (استشاري)", en_name: "Dr. Mohamed Abdelwahed", schedule: { "الأحد": "5:30 م", "الإثنين": "5 م" } }, { name: "د. سامح عبد العزيز (اسشاري)", en_name: "Dr. Sameh Abdelaziz", schedule: { "السبت": "5 م", "الأربعاء": "4 م" } }, { name: "د. علي عبد الرافع يوسف (استشاري)", en_name: "Dr. Ali Abdelrafie", schedule: { "الإثنين": "8 م", "الثلاثاء": "8 م", "الأربعاء": "8 م" } } ] },
+        { id: "الرمد", doctors: [ { name: "د. محمد صلاح (إستشاري)", en_name: "Dr. Mohamed Salah", schedule: { "الإثنين": "7:30 م", "الثلاثاء": "7:30 م", "الخميس": "7:30 م" } }, { name: "د. حنان إسماعيل (إستشاري)", en_name: "Dr. Hanan Ismail", schedule: { "السبت": "5 م", "الأربعاء": "6 م" } }, { name: "د. اميره مطاوع (اخصائي)", en_name: "Dr. Amira Motawea", schedule: { "الإثنين": "5 م", "الخميس": "5 م" } }, { name: "د. ميرفت عبد العظيم (استشاري)", en_name: "Dr. Mervat Abdelazim", schedule: { "الجمعة": "2:30" } }, { name: "د. محمد على (إستشاري)", en_name: "Dr. Mohamed Ali", schedule: { "الأحد": "8 م", "الأربعاء": "8 م" } } ] },
+        { id: "تغذية-الأطفال", doctors: [ { name: "د. نسرين عبد الرحمن (إستشاري)", en_name: "Dr. Nesrin Abdelrahman", schedule: { "السبت": "1 م", "الثلاثاء": "2 م", "الخميس": "6:30 م" } } ] },
+        { id: "مناعة-وحساسية-الأطفال", doctors: [ { name: "د. سامح عبد العزيز (استشاري)", en_name: "Dr. Sameh Abdelaziz", schedule: { "السبت": "5 م", "الأربعاء": "4 م" } } ] },
+        { id: "القلب", doctors: [ { name: "د. اشرف الأمير (إستشاري)", en_name: "Dr. Ashraf Elamir", schedule: { "السبت": "6 م", "الخميس": "8 م" } }, { name: "د. محمد ابو مندور (إستشاري)", en_name: "Dr. Mohamed Abomandour", schedule: { "الأحد": "6 م", "الأربعاء": "6 م" } }, { name: "د. محمد زيدان (اخصائي)", en_name: "Dr. Mohamed Zeidan", schedule: { "الإثنين": "8 م", "الثلاثاء": "8 م" } } ] },
+        { id: "رسم-قلب-بالمجهود-وإيكو", doctors: [ { name: "د. محمد الدمرداش (اخصائي)", en_name: "Dr. Mohamed Demerdash", schedule: { "السبت": "3 م", "الإثنين": "3 م" } } ] },
+        { id: "جراحة-التجميل", doctors: [ { name: "د. اسامه الشحات (استشاري)", en_name: "Dr. Osama Elshahat", schedule: { "الإثنين": "4:30 م" } } ] },
+        { id: "علاج-البواسير-والشرخ-بالليزر", doctors: [ { name: "د. وائل صابر (استشاري)", en_name: "Dr. Wael Saber", schedule: { "الإثنين": "8:30 م", "الجمعة": "2:30 م" } } ] },
+        { id: "الأسنان", doctors: [ { name: "د. محمود اهاب (اخصائي)", en_name: "Dr. Mahmoud Ehab", schedule: { "الأحد": "4 م", "الثلاثاء": "6 م", "الأربعاء": "7 م" } }, { name: "د. زياد اشرف (اخصائي)", en_name: "Dr. Ziad Ashraf", schedule: { "السبت": "7 م", "الإثنين": "2 م", "الجمعة": "2 م" } }, { name: "د. نرمين حاتم (اخصائي)", en_name: "Dr. Nermin Hatem", schedule: { "الإثنين": "3 م", "الثلاثاء": "3 م" } }, { name: "د. ريم السيد (اخصائي)", en_name: "Dr. Reem Elsayed", schedule: { "الأحد": "6 م", "الخميس": "6:30 م" } }, { name: "د. سلمي هاني (استشاري)", en_name: "Dr. Salma Hany", schedule: { "السبت": "12 ظ" } }, { name: "د. علي محسن (اخصائي)", en_name: "Dr. Ali Mohsen", schedule: { "الإثنين": "6 م", "الأربعاء": "4 م", "الخميس": "4 م" } } ] },
+        { id: "السمعيات", doctors: [ { name: "د. شيماء قابيل (استشاري)", en_name: "Dr. Shaimaa Qabil", schedule: { "الأربعاء": "6 م" } }, { name: "د. هاني عبد العزيز (استشاري)", en_name: "Dr. Hany Abdelaziz", schedule: { "الأحد": "12 ظ" } } ] },
+        { id: "أمراض-الدم", doctors: [ { name: "د. عمرو صدقي (استشاري)", en_name: "Dr. Amr Sedky", schedule: { "الإثنين": "2 م", "الخميس": "4 م" } } ] }
     ];
 
-    // Clinic display data
+    // Clinic display data (Icons and English names)
     const clinicsDisplayData = [
-        { id: "الرمد", name: "الرمد", en_name: "Ophthalmology", icon: "ophthalmology.svg", isSvg: true },
-        { id: "الأوعية-الدموية", name: "الأوعية الدموية", en_name: "Vascular", icon: "vascular.svg", isSvg: true },
+        { id: "الباطنة-العامة", name: "الباطنة العامة", en_name: "General Medicine", icon: "fa-stethoscope", isSvg: false },
         { id: "غدد-صماء-وسكر", name: "غدد صماء وسكر", en_name: "Endocrinology & Diabetes", icon: "endocrinology.svg", isSvg: true },
-        { id: "مناعة-وروماتيزم", name: "مناعة وروماتيزم", en_name: "Immunology & Rheumatology", icon: "immunology.svg", isSvg: true },
-        { id: "مناعة-وحساسية-الأطفال", name: "مناعة وحساسية الأطفال", en_name: "Pediatric Immunology & Allergy", icon: "pediatric-immunology.svg", isSvg: true },
-        { id: "أنف-وأذن-وحنجرة", name: "أنف وأذن وحنجرة", en_name: "ENT", icon: "ent.svg", isSvg: true },
-        { id: "الصدر", name: "الصدر", en_name: "Pulmonology", icon: "pulmonology.svg", isSvg: true },
         { id: "جهاز-هضمي-ومناظير", name: "جهاز هضمي ومناظير", en_name: "Gastroenterology & Endoscopy", icon: "gastroenterology.svg", isSvg: true },
         { id: "باطنة-وقلب", name: "باطنة وقلب", en_name: "Internal Medicine & Cardiology", icon: "internal-medicine-cardiology.svg", isSvg: true },
         { id: "الجراحة-العامة", name: "الجراحة العامة", en_name: "General Surgery", icon: "general-surgery.svg", isSvg: true },
+        { id: "مناعة-وروماتيزم", name: "مناعة وروماتيزم", en_name: "Immunology & Rheumatology", icon: "immunology.svg", isSvg: true },
         { id: "نساء-وتوليد", name: "نساء وتوليد", en_name: "Obstetrics & Gynecology", icon: "obgyn.svg", isSvg: true },
-        { id: "العظام", name: "العظام", en_name: "Orthopedics", icon: "orthopedics.svg", isSvg: true },
-        { id: "الجلدية", name: "الجلدية", en_name: "Dermatology", icon: "dermatology.svg", isSvg: true },
-        { id: "المخ-والأعصاب-باطنة", name: "المخ والأعصاب (باطنة)", en_name: "Neurology", icon: "neurology.svg", isSvg: true },
-        { id: "المسالك-البولية", name: "المسالك البولية", en_name: "Urology", icon: "urology.svg", isSvg: true },
-        { id: "الأطفال", name: "الأطفال", en_name: "Pediatrics", icon: "pediatrics.svg", isSvg: true },
-        { id: "أمراض-الدم", name: "أمراض الدم", en_name: "Hematology", icon: "hematology.svg", isSvg: true },
-        { id: "الباطنة-العامة", name: "الباطنة العامة", en_name: "General Medicine", icon: "fa-stethoscope", isSvg: false },
-        { id: "جراحة-المخ-والأعصاب", name: "جراحة المخ والأعصاب", en_name: "Neurosurgery", icon: "fa-user-md", isSvg: false },
+        { id: "أنف-وأذن-وحنجرة", name: "أنف وأذن وحنجرة", en_name: "ENT", icon: "ent.svg", isSvg: true },
+        { id: "الصدر", name: "الصدر", en_name: "Pulmonology", icon: "pulmonology.svg", isSvg: true },
         { id: "أمراض-الذكورة", name: "أمراض الذكورة", en_name: "Andrology", icon: "fa-mars", isSvg: false },
+        { id: "الجلدية", name: "الجلدية", en_name: "Dermatology", icon: "dermatology.svg", isSvg: true },
+        { id: "العظام", name: "العظام", en_name: "Orthopedics", icon: "orthopedics.svg", isSvg: true },
+        { id: "المخ-والأعصاب-باطنة", name: "المخ والأعصاب (باطنة)", en_name: "Neurology", icon: "neurology.svg", isSvg: true },
+        { id: "جراحة-المخ-والأعصاب", name: "جراحة المخ والأعصاب", en_name: "Neurosurgery", icon: "fa-user-md", isSvg: false },
+        { id: "المسالك-البولية", name: "المسالك البولية", en_name: "Urology", icon: "urology.svg", isSvg: true },
+        { id: "الأوعية-الدموية", name: "الأوعية الدموية", en_name: "Vascular", icon: "vascular.svg", isSvg: true },
+        { id: "الأطفال", name: "الأطفال", en_name: "Pediatrics", icon: "pediatrics.svg", isSvg: true },
+        { id: "الرمد", name: "الرمد", en_name: "Ophthalmology", icon: "ophthalmology.svg", isSvg: true },
         { id: "تغذية-الأطفال", name: "تغذية الأطفال", en_name: "Pediatric Nutrition", icon: "fa-apple-whole", isSvg: false },
+        { id: "مناعة-وحساسية-الأطفال", name: "مناعة وحساسية الأطفال", en_name: "Pediatric Immunology & Allergy", icon: "pediatric-immunology.svg", isSvg: true },
         { id: "القلب", name: "القلب", en_name: "Cardiology", icon: "fa-heart-circle-check", isSvg: false },
         { id: "رسم-قلب-بالمجهود-وإيكو", name: "رسم قلب بالمجهود وإيكو", en_name: "Stress ECG & Echocardiography", icon: "fa-wave-square", isSvg: false },
         { id: "جراحة-التجميل", name: "جراحة التجميل", en_name: "Plastic Surgery", icon: "fa-wand-magic-sparkles", isSvg: false },
         { id: "علاج-البواسير-والشرخ-بالليزر", name: "علاج البواسير والشرخ بالليزر", en_name: "Laser Proctology", icon: "fa-crosshairs", isSvg: false },
         { id: "الأسنان", name: "الأسنان", en_name: "Dentistry", icon: "fa-tooth", isSvg: false },
-        { id: "السمعيات", name: "السمعيات", en_name: "Audiology", icon: "fa-assistive-listening-systems", isSvg: false }
+        { id: "السمعيات", name: "السمعيات", en_name: "Audiology", icon: "fa-assistive-listening-systems", isSvg: false },
+        { id: "أمراض-الدم", name: "أمراض الدم", en_name: "Hematology", icon: "hematology.svg", isSvg: true },
     ].map(clinic => {
         const fullData = allClinicsFullData.find(c => c.id === clinic.id);
         return { ...clinic, doctors: fullData ? fullData.doctors : [] };
     });
+    // =================================================================================
+    // END: DOCTOR AND CLINIC DATA
+    // =================================================================================
 
     const clinicsContainer = document.getElementById('clinics-container');
     const daysMap = { "السبت": "Saturday", "الأحد": "Sunday", "الإثنين": "Monday", "الثلاثاء": "Tuesday", "الأربعاء": "Wednesday", "الخميس": "Thursday", "الجمعة": "Friday" };
@@ -371,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const section = document.createElement('div');
             section.className = 'clinic-section';
-            section.id = `clinic-${clinic.id}`; // Use a simpler ID for easier scrolling
+            section.id = `clinic-${clinic.id}`;
             const title = document.createElement('div');
             title.className = 'section-title';
             
@@ -422,7 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderClinics(clinicsDisplayData);
 
-    // Search Logic
     const searchInput = document.getElementById('doctor-search-input');
     const searchBtn = document.getElementById('doctor-search-btn');
     const searchResultsContainer = document.getElementById('search-results-container');
@@ -486,7 +491,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- Global function to scroll to clinic ---
     window.scrollToClinic = (clinicId) => {
         const clinicSection = document.getElementById(`clinic-${clinicId}`);
         if (clinicSection) {
@@ -496,11 +500,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // API Endpoints (relative paths since served from same app)
     const RECOMMEND_API = '/api/recommend';
     const ANALYZE_API = '/api/analyze';
 
-    // Symptoms Recommendation Logic
     const getRecommendationBtn = document.getElementById('get-recommendation-btn');
     const symptomsInput = document.getElementById('symptoms-input');
     const recommendationResultContainer = document.getElementById('recommendation-result-container');
@@ -512,30 +514,25 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('من فضلك، قم بوصف الأعراض التي تشعر بها.');
             return;
         }
-
         loader.style.display = 'block';
         recommendationResultContainer.innerHTML = '';
         getRecommendationBtn.disabled = true;
-
         try {
             const response = await fetch(RECOMMEND_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symptoms: symptomsText })
             });
-
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({error: "حدث خطأ في الاتصال بالخادم."}));
                 throw new Error(errorData.error);
             }
-            
             const data = await response.json();
             if (data.recommendations && data.recommendations.length > 0) {
                 displayRecommendations(data.recommendations);
             } else {
                  displayFallback();
             }
-
         } catch (error) {
             console.error("Error:", error);
             displayFallback(`عفواً، حدث خطأ تقني: ${error.message}`);
@@ -550,15 +547,12 @@ document.addEventListener('DOMContentLoaded', function() {
         recommendations.forEach((rec, index) => {
             const clinicInfo = clinicMap.get(rec.id);
             if (!clinicInfo) return;
-
             const isPrimary = index === 0;
             const card = document.createElement('div');
             card.className = `recommendation-card ${isPrimary ? 'primary-recommendation' : ''}`;
-            
             const iconHtml = clinicInfo.isSvg 
                 ? `<div class="svg-icon" style="-webkit-mask-image: url(./icons/${clinicInfo.icon}); mask-image: url(./icons/${clinicInfo.icon});"></div>`
                 : `<i class="fa-solid ${clinicInfo.icon}"></i>`;
-
             card.innerHTML = `
                 <div class="recommendation-header">
                     <div class="icon">${iconHtml}</div>
@@ -576,7 +570,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const fallbackMessage = message || 'لم نتمكن من تحديد تخصص دقيق. نقترح عليك التوجه لعيادة <strong>الباطنة العامة</strong> كنقطة بداية.';
         const clinicInfo = clinicMap.get("الباطنة-العامة");
         const iconHtml = `<i class="fa-solid ${clinicInfo.icon}"></i>`;
-        
         recommendationResultContainer.innerHTML = `
             <div class="recommendation-card primary-recommendation">
                  <div class="recommendation-header">
@@ -590,7 +583,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // --- AI Analyzer Logic ---
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('report-files-input');
     const previewContainer = document.getElementById('file-preview-container');
@@ -600,45 +592,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const userNotesInput = document.getElementById('user-notes-input');
     let uploadedFiles = [];
 
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, preventDefaults, false);
-    });
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, () => uploadArea.classList.add('drag-over'), false);
-    });
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('drag-over'), false);
-    });
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => uploadArea.addEventListener(eventName, preventDefaults, false));
+    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+    ['dragenter', 'dragover'].forEach(eventName => uploadArea.addEventListener(eventName, () => uploadArea.classList.add('drag-over'), false));
+    ['dragleave', 'drop'].forEach(eventName => uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('drag-over'), false));
     uploadArea.addEventListener('drop', handleDrop, false);
-
-    function handleDrop(e) {
-        let dt = e.dataTransfer;
-        let files = dt.files;
-        handleFiles(files);
-    }
-
-    fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-    });
+    function handleDrop(e) { let dt = e.dataTransfer; let files = dt.files; handleFiles(files); }
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
     function handleFiles(files) {
         [...files].forEach(file => {
-            if (file.size > 5 * 1024 * 1024) {
-                alert(`الملف "${file.name}" كبير جدًا (أكثر من 5 ميجابايت) ولن يتم رفعه.`);
-                return;
-            }
+            if (file.size > 5 * 1024 * 1024) { alert(`الملف "${file.name}" كبير جدًا (أكثر من 5 ميجابايت) ولن يتم رفعه.`); return; }
             const reader = new FileReader();
             reader.onload = (e) => {
-                const fileData = {
-                    name: file.name,
-                    base64: e.target.result,
-                    mimeType: file.type || 'application/octet-stream'
-                };
-                uploadedFiles.push(fileData);
+                uploadedFiles.push({ name: file.name, base64: e.target.result, mimeType: file.type || 'application/octet-stream' });
                 renderPreviews();
             };
             reader.readAsDataURL(file);
@@ -650,26 +617,14 @@ document.addEventListener('DOMContentLoaded', function() {
         uploadedFiles.forEach((fileData, index) => {
             const previewItem = document.createElement('div');
             previewItem.className = 'preview-item';
-            
             let filePreviewHtml;
             if (fileData.mimeType.startsWith('image/')) {
                 filePreviewHtml = `<img src="${fileData.base64}" alt="${fileData.name}">`;
             } else {
-                let iconClass = 'fa-solid fa-file';
-                if (fileData.mimeType.includes('pdf')) iconClass = 'fa-solid fa-file-pdf';
-                else if (fileData.mimeType.includes('word')) iconClass = 'fa-solid fa-file-word';
-                filePreviewHtml = `
-                    <div class="file-icon">
-                        <i class="${iconClass}"></i>
-                        <span>${fileData.name}</span>
-                    </div>
-                `;
+                let iconClass = fileData.mimeType.includes('pdf') ? 'fa-solid fa-file-pdf' : 'fa-solid fa-file';
+                filePreviewHtml = `<div class="file-icon"><i class="${iconClass}"></i><span>${fileData.name}</span></div>`;
             }
-
-            previewItem.innerHTML = `
-                ${filePreviewHtml}
-                <button class="remove-file-btn" data-index="${index}">&times;</button>
-            `;
+            previewItem.innerHTML = `${filePreviewHtml}<button class="remove-file-btn" data-index="${index}">&times;</button>`;
             previewContainer.appendChild(previewItem);
         });
         updateAnalyzeButtonState();
@@ -683,47 +638,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    function updateAnalyzeButtonState() {
-        analyzeBtn.disabled = uploadedFiles.length === 0;
-    }
+    function updateAnalyzeButtonState() { analyzeBtn.disabled = uploadedFiles.length === 0; }
 
     analyzeBtn.addEventListener('click', async () => {
         if (uploadedFiles.length === 0) return;
-
         analysisLoader.style.display = 'block';
         analysisResultContainer.innerHTML = '';
         analyzeBtn.disabled = true;
-
-        const filesPayload = uploadedFiles.map(file => ({
-            mime_type: file.mimeType,
-            data: file.base64.split(',')[1]
-        }));
-
+        const filesPayload = uploadedFiles.map(file => ({ mime_type: file.mimeType, data: file.base64.split(',')[1] }));
         try {
             const response = await fetch(ANALYZE_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    files: filesPayload,
-                    notes: userNotesInput.value 
-                })
+                body: JSON.stringify({ files: filesPayload, notes: userNotesInput.value })
             });
-
             if (!response.ok) {
-                 const errorData = await response.json().catch(() => ({error: "حدث خطأ في الخادم. قد يكون الملف غير مدعوم."}));
+                const errorData = await response.json().catch(() => ({error: "حدث خطأ في الخادم. قد يكون الملف غير مدعوم."}));
                 throw new Error(errorData.error);
             }
-
             const data = await response.json();
             displayAnalysisResult(data);
-
         } catch (error) {
             console.error("Analysis Error:", error);
             analysisResultContainer.innerHTML = `<div class="analysis-card"><p style="color:var(--danger-red);">عفواً، حدث خطأ تقني: ${error.message}. يرجى التأكد من أن الملفات واضحة والمحاولة مرة أخرى.</p></div>`;
         } finally {
             analysisLoader.style.display = 'none';
-            // Do not re-enable the button immediately, let the user remove files to try again.
-            // updateAnalyzeButtonState();
         }
     });
 
@@ -731,7 +670,6 @@ document.addEventListener('DOMContentLoaded', function() {
         analysisResultContainer.innerHTML = '';
         const card = document.createElement('div');
         card.className = 'analysis-card';
-
         let recommendationsHtml = '';
         if (data.recommendations && data.recommendations.length > 0 && data.recommendations[0].id) {
             const rec = data.recommendations[0];
@@ -751,20 +689,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             }
         }
-        
         card.innerHTML = `
-            <div class="disclaimer">
-                <i class="fa-solid fa-triangle-exclamation"></i> <strong>تنبيه هام:</strong> هذا التحليل هو مجرد إرشاد أولي مقدم من مساعد ذكي ولا يغني إطلاقًا عن استشارة الطبيب المختص.
-            </div>
-
+            <div class="disclaimer"><i class="fa-solid fa-triangle-exclamation"></i> <strong>تنبيه هام:</strong> هذا التحليل هو مجرد إرشاد أولي ولا يغني إطلاقًا عن استشارة الطبيب المختص.</div>
             <h3 class="analysis-section-title">شرح احترافي مبدئي للتقرير</h3>
-            <p>${data.interpretation || 'لم يتمكن المساعد من تقديم شرح واضح. يرجى استشارة الطبيب.'}</p>
-
+            <p>${data.interpretation || 'لم يتمكن المساعد من تقديم شرح واضح.'}</p>
             <h3 class="analysis-section-title">نصائح وإرشادات مؤقتة</h3>
-            <ul>
-                ${(data.temporary_advice && data.temporary_advice.length > 0) ? data.temporary_advice.map(item => `<li>${item}</li>`).join('') : '<li>لا توجد نصائح محددة. يرجى استشارة الطبيب.</li>'}
-            </ul>
-            
+            <ul>${(data.temporary_advice && data.temporary_advice.length > 0) ? data.temporary_advice.map(item => `<li>${item}</li>`).join('') : '<li>لا توجد نصائح محددة.</li>'}</ul>
             ${recommendationsHtml}
         `;
         analysisResultContainer.appendChild(card);
