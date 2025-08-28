@@ -44,7 +44,8 @@
     }
     .logo-container { text-align: center; margin: -25px -25px 25px -25px; }
     .logo-image { width: 100%; height: auto; }
-    
+
+    /* --- تصميم احترافي جديد للمعلومات --- */
     .info-professional {
         background-color: #f8f9fa;
         border-radius: 10px;
@@ -114,8 +115,14 @@
         animation: sheen 3s infinite;
     }
 
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-    @keyframes sheen { 0% { left: -60%; } 100% { left: 140%; } }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    @keyframes sheen {
+        0% { left: -60%; }
+        100% { left: 140%; }
+    }
 
     .recommendation-header .icon .svg-icon {
         width: 100%;
@@ -174,29 +181,6 @@
     .whatsapp-btn { display: inline-block; background-color: var(--whatsapp-green); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 16px; transition: transform 0.2s; }
     .whatsapp-btn:hover { transform: scale(1.05); }
     .whatsapp-btn i { margin-left: 10px; }
-    
-    /* --- CSS الجديد الخاص بقسم الخريطة --- */
-    .location-section {
-        margin-top: 40px;
-        text-align: center;
-    }
-    .location-section h2 {
-        font-size: 20px;
-        color: var(--dark-green);
-        margin-bottom: 15px;
-    }
-    .location-map iframe {
-        width: 100%;
-        height: 300px;
-        border: 0;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .location-address {
-        margin-top: 15px;
-        font-size: 16px;
-        color: var(--text-muted);
-    }
 </style>
 </head>
 <body>
@@ -269,18 +253,6 @@
             تواصل معنا <i class="fab fa-whatsapp"></i>
         </a>
     </div>
-
-    <!-- قسم الخريطة الجديد -->
-    <div class="location-section">
-        <h2>موقعنا على الخريطة</h2>
-        <div class="location-map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.793393278571!2d31.29341517555319!3d30.01416997493771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145839b1d964f43b%3A0x7d6a5a9478f7a8c!2sMokattam%20Specialized%20Hospital!5e0!3m2!1sen!2seg!4v1693175510427!5m2!1sen!2seg" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <p class="location-address">
-            مستشفى المقطم التخصصي، شارع 9، الأباجية، المقطم، محافظة القاهرة 4413430
-        </p>
-    </div>
-
     <div class="footer-image-container">
         <img src="https://i.ibb.co/Mx1BZJn3/C.png" alt="Hospital Contracts" class="footer-image">
     </div>
@@ -316,7 +288,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: "جراحة-التجميل", doctors: [ { name: "د. اسامه الشحات (استشاري)", en_name: "Dr. Osama Elshahat (Consultant)", schedule: { "الإثنين": "04:30 PM" } } ] },
         { id: "علاج-البواسير-والشرخ-بالليزر", doctors: [ { name: "د. وائل صابر (استشاري)", en_name: "Dr. Wael Saber (Consultant)", schedule: { "الإثنين": "08:30 PM", "الجمعة": "02:30 PM" } } ] },
         { id: "الأسنان", doctors: [ { name: "د. محمود اهاب (اخصائي)", en_name: "Dr. Mahmoud Ehab (Specialist)", schedule: { "السبت": "04:00 PM", "الثلاثاء": "06:00 PM", "الأربعاء": "07:00 PM" } }, { name: "د. زياد اشرف (اخصائي)", en_name: "Dr. Ziad Ashraf (Specialist)", schedule: { "السبت": "07:00 PM", "الإثنين": "02:00 PM", "الجمعة": "02:00 PM" } }, { name: "د. نرمين حاتم (اخصائي)", en_name: "Dr. Nermin Hatem (Specialist)", schedule: { "الإثنين": "03:00 PM", "الثلاثاء": "03:00 PM" } }, { name: "د. ريم السيد (اخصائي)", en_name: "Dr. Reem Elsayed (Specialist)", schedule: { "الأحد": "06:00 PM", "الخميس": "06:30 PM" } }, { name: "د. سلمي هاني (استشاري)", en_name: "Dr. Salma Hany (Consultant)", schedule: { "السبت": "12:00 PM" } }, { name: "د. علي محسن (اخصائي)", en_name: "Dr. Ali Mohsen (Specialist)", schedule: { "الإثنين": "06:00 PM", "الأربعاء": "04:00 PM", "الخميس": "04:00 PM" } } ] },
-        { id: "السمعيات", doctors: [ { name: "د. شيماء قابيل (استشاري)", en_name: "Dr. Shaimaa Qabil (Consultant)", schedule: { "الأربعاء": "06:00 PM" } }, { name: "د. هاني عبدالعزيز (استشاري)", en_name: "Dr. Hany Abdelaziz (Consultant)", schedule: { "الأحد": "12:00 PM" } } ] }
+        { id: "السمعيات", doctors: [ { name: "د. شيماء قابيل (استشاري)", en_name: "Dr. Shaimaa Qabil (Consultant)", schedule: { "الأربعاء": "06:00 PM" } }, { name: "د. هاني عبدالعزيز (استشاري)", en_name: "Dr. Hany Abdelaziz (Consultant)", schedule: { "الأحد": "12:00 PM" } } ] },
+        { id: "أمراض-الدم", doctors: [ { name: "د. عمرو صدقي (استشاري)", en_name: "Dr. Amr Sedky (Consultant)", schedule: { "الإثنين": "02:00 PM", "الخميس": "04:00 PM" } } ] }
     ];
 
     const clinicsDisplayData = [
