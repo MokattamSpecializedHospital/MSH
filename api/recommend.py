@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler
 import json
 import base64
 
-# القائمة الكاملة والمحدثة لمعرفات (IDs) العيادات (27 تخصص)
+# A complete and updated list of clinic IDs (27 specialties)
 CLINICS_LIST = """
 "الباطنة-العامة", "غدد-صماء-وسكر", "جهاز-هضمي-ومناظير", "باطنة-وقلب", "الجراحة-العامة",
 "مناعة-وروماتيزم", "نساء-وتوليد", "أنف-وأذن-وحنجرة", "الصدر", "أمراض-الذكورة", "الجلدية",
