@@ -43,7 +43,7 @@ class handler(BaseHTTPRequestHandler):
             self._send_response(404, {"error": "Endpoint not found"})
 
     def handle_symptoms_recommendation(self):
-        """Handles the main logic of receiving symptoms and returning recommendations."""
+        """Handles receiving symptoms and returning recommendations."""
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
         
@@ -88,17 +88,17 @@ class handler(BaseHTTPRequestHandler):
             self._send_response(500, {"error": f"An internal server error occurred: {str(e)}"})
 
     def handle_report_analysis(self):
-        """Handles receiving medical report images and returning an AI-based analysis."""
+        """Handles receiving medical report files (images, PDFs, etc.) and returning an AI-based analysis."""
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
         
         try:
             data = json.loads(post_data)
-            images_data = data.get('images')
+            files_data = data.get('files')
             user_notes = data.get('notes', '')
 
-            if not images_data:
-                self._send_response(400, {"error": "Missing images in request"})
+            if not files_data:
+                self._send_response(400, {"error": "Missing files in request"})
                 return
             
             api_key = os.environ.get("GEMINI_API_KEY")
@@ -109,53 +109,46 @@ class handler(BaseHTTPRequestHandler):
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel('gemini-1.5-flash')
 
-            # Prepare image parts for the model
-            image_parts = []
-            for img in images_data:
-                image_parts.append({
-                    "mime_type": img["mime_type"],
-                    "data": img["data"] 
+            # Prepare file parts for the multimodal model
+            file_parts = []
+            for file in files_data:
+                # The incoming data is already base64 encoded from the frontend
+                file_parts.append({
+                    "mime_type": file["mime_type"],
+                    "data": base64.b64decode(file["data"]) 
                 })
 
             prompt = f"""
-            أنت مساعد طبي ذكي ومحلل تقارير طبية في مستشفى مرموق. مهمتك هي تحليل صور التقارير الطبية (تحاليل دم، أشعة، إلخ) التي يرفعها المريض وتقديم إرشادات أولية واضحة.
+            أنت مساعد طبي ذكي ومحلل تقارير طبية في مستشفى مرموق. مهمتك هي تحليل الملفات الطبية (صور، PDF، الخ) التي يرفعها المريض وتقديم إرشادات أولية واضحة.
             قائمة معرفات (IDs) العيادات المتاحة هي: [{CLINICS_LIST}]
             ملاحظات المريض الإضافية: "{user_notes if user_notes else 'لا يوجد'}"
 
-            المطلوب منك تحليل الصور المرفقة وتقديم رد بصيغة JSON فقط، بدون أي نصوص أو علامات قبله أو بعده، ويحتوي على الحقول التالية:
+            المطلوب منك تحليل الملفات المرفقة وتقديم رد بصيغة JSON فقط، بدون أي نصوص أو علامات قبله أو بعده، ويحتوي على الحقول التالية:
             1.  `interpretation`: (String) شرح مبسط جداً وواضح لما يظهر في التقرير. تجنب المصطلحات المعقدة. ركز على المؤشرات الرئيسية إن وجدت (مثال: "يُظهر التقرير ارتفاعاً طفيفاً في كريات الدم البيضاء، مما قد يشير إلى وجود التهاب."). **لا تقدم تشخيصاً نهائياً أبداً.**
             2.  `temporary_advice`: (Array of strings) قائمة نصائح عامة ومؤقتة يمكن للمريض اتباعها حتى زيارة الطبيب. يجب أن تكون نصائح آمنة (مثال: "الحصول على قسط كافٍ من الراحة"، "شرب كميات كافية من السوائل"، "تجنب المجهود البدني الشاق").
             3.  `recommendations`: (Array of objects) قائمة تحتوي على **عيادة واحدة فقط** هي الأنسب للحالة. يجب أن يحتوي كل عنصر على:
                 - `id`: معرف (ID) العيادة من القائمة المتاحة.
-                - `reason`: (String) شرح بسيط ومباشر لسبب اختيار هذه العيادة (مثال: "بناءً على نتائج تحليل وظائف الكلى، نوصي بالتوجه لعيادة أمراض الكلى لمتابعة الحالة.").
+                - `reason`: (String) شرح بسيط ومباشر لسبب اختيار هذه العيادة (مثال: "بناءً على نتائج تحليل وظائف الكلى، نوصي بالتوجه لعيادة المسالك البولية لمتابعة الحالة.").
 
-            مثال على الرد المطلوب:
-            {{
-              "interpretation": "يظهر تحليل الدم الكامل ارتفاعاً في مستوى السكر التراكمي، مما قد يشير إلى وجود مرض السكري أو حالة ما قبل السكري.",
-              "temporary_advice": [
-                "يُنصح بتجنب السكريات والحلويات.",
-                "الحرص على شرب الماء بكميات كافية.",
-                "مراقبة أي أعراض جديدة مثل العطش الشديد أو كثرة التبول."
-              ],
-              "recommendations": [
-                {{
-                  "id": "غدد-صماء-وسكر",
-                  "reason": "بسبب ارتفاع مستوى السكر في الدم، فإن عيادة الغدد الصماء والسكري هي الجهة المختصة لمتابعة وتقييم الحالة بشكل دقيق."
-                }}
-              ]
-            }}
-            
-            **مهم جداً:** إذا كانت الصور غير واضحة أو لا تحتوي على معلومات طبية، أعد رداً مناسباً في حقل `interpretation` مثل "الصور المرفقة غير واضحة أو لا تحتوي على معلومات طبية يمكن تحليلها." واترك الحقول الأخرى فارغة.
+            **مهم جداً:** إذا كانت الملفات غير واضحة أو لا تحتوي على معلومات طبية، أعد رداً مناسباً في حقل `interpretation` مثل "الملفات المرفقة غير واضحة أو لا تحتوي على معلومات طبية يمكن تحليلها." واترك الحقول الأخرى فارغة.
             """
             
-            # Create the content array with the prompt and images
-            content = [prompt] + image_parts
+            # Create the content array with the prompt and files
+            content = [prompt] + file_parts
             
             response = model.generate_content(content)
             
-            cleaned_text = response.text.strip().replace("```json", "").replace("```", "")
+            # Clean the response to ensure it's valid JSON
+            cleaned_text = response.text.strip()
+            if cleaned_text.startswith("```json"):
+                cleaned_text = cleaned_text[7:]
+            if cleaned_text.endswith("```"):
+                cleaned_text = cleaned_text[:-3]
+            
             json_response = json.loads(cleaned_text)
             self._send_response(200, json_response)
 
+        except json.JSONDecodeError:
+            self._send_response(500, {"error": "فشل المساعد الذكي في تكوين رد صالح. قد تكون الملفات غير واضحة."})
         except Exception as e:
-            self._send_response(500, {"error": f"An internal server error occurred: {str(e)}"})
+            self._send_response(500, {"error": f"حدث خطأ غير متوقع في الخادم: {str(e)}"})
