@@ -37,7 +37,12 @@ def recommend_clinic():
             return jsonify({"error": "Server configuration error."}), 500
 
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        
+        # ===============================================================
+        #  التعديل النهائي: تم تغيير الموديل إلى 'gemini-1.0-pro'
+        #  لضمان التوافق مع جميع مناطق جوجل السحابية
+        # ===============================================================
+        model = genai.GenerativeModel('gemini-1.0-pro')
 
         prompt = f"""
         أنت مساعد طبي خبير ومحترف في مستشفى كبير. مهمتك هي تحليل شكوى المريض بدقة واقتراح أفضل عيادتين بحد أقصى من قائمة العيادات المتاحة.
