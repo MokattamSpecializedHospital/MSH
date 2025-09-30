@@ -4,11 +4,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import json
 
-# تهيئة تطبيق فلاسك لخدمة الملفات الثابتة من مجلد "static"
 app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
-# قائمة العيادات المتاحة
 CLINICS_LIST = """
 "الباطنة-العامة", "غدد-صماء-وسكر", "جهاز-هضمي-ومناظير", "باطنة-وقلب", "الجراحة-العامة",
 "مناعة-وروماتيزم", "نساء-وتوليد", "أنف-وأذن-وحنجرة", "الصدر", "أمراض-الذكورة", "الجلدية",
@@ -17,12 +15,10 @@ CLINICS_LIST = """
 "جراحة-التجميل", "علاج-البواسير-والشرخ-بالليزر", "الأسنان", "السمعيات", "أمراض-الدم"
 """
 
-# المسار الخاص بصفحة الموقع الرئيسية
 @app.route('/')
 def serve_index():
     return send_from_directory('static', 'index.html')
 
-# المسار الخاص بتوصية العيادات بناءً على الأعراض
 @app.route("/api/recommend", methods=["POST"])
 def recommend_clinic():
     try:
@@ -38,11 +34,10 @@ def recommend_clinic():
 
         genai.configure(api_key=api_key)
         
-        # ===============================================================
-        #  التعديل النهائي: تم تغيير الموديل إلى 'gemini-1.0-pro'
-        #  لضمان التوافق مع جميع مناطق جوجل السحابية
-        # ===============================================================
-        model = genai.GenerativeModel('gemini-1.0-pro')
+        model = genai.GenerativeModel(
+            'gemini-1.5-flash',
+            generation_config={"response_mime_type": "application/json"}
+        )
 
         prompt = f"""
         أنت مساعد طبي خبير ومحترف في مستشفى كبير. مهمتك هي تحليل شكوى المريض بدقة واقتراح أفضل عيادتين بحد أقصى من قائمة العيادات المتاحة.
@@ -52,6 +47,7 @@ def recommend_clinic():
         """
         
         response = model.generate_content(prompt)
+        # تم الإبقاء على طريقة معالجة النص الأصلية حسب طلبك
         cleaned_text = response.text.strip().replace("```json", "").replace("```", "")
         json_response = json.loads(cleaned_text)
         return jsonify(json_response)
@@ -60,8 +56,5 @@ def recommend_clinic():
         print(f"ERROR in /api/recommend: {str(e)}")
         return jsonify({"error": "An internal server error occurred."}), 500
 
-# تم حذف المسار الخاص بتحليل التقارير الطبية (/api/analyze) لأنه لم يعد مستخدماً
-
-# هذا الجزء يسمح بتشغيل التطبيق محلياً للاختبار
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
